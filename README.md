@@ -23,18 +23,9 @@ PUT http://localhost:5000/api/users/forrest
     "forrest" : "20"
 }
 
-Docker:
-At the root directory you can run
+Docker to run root directory 
+docker-compose up
 
-Build the new image and spin up the two containers:
-```bash
-docker-compose up -d --build
-```
+Docker to remove
+docker-compose down -v
 
--d: Run containers in the background
----build: Build images before starting containers.
-
-```bash
-docker-compose down -v 
-```
--v: Remove named volumes declared in the `volumes`
