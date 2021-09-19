@@ -23,9 +23,21 @@ PUT http://localhost:5000/api/users/forrest
     "forrest" : "20"
 }
 
-Docker to run root directory 
+DOCKER to run root directory 
 docker-compose up
 
-Docker to remove
+DOCKER to remove
 docker-compose down -v
 
+HEROKU setup 
+heroku login
+heroku container:login
+heroku create
+
+HEROKU push code 
+heroku container:push --recursive
+heroku container:release backend frontend
+
+
+heroku container:push mongo server client --recursive dry-atoll-71007
+heroku open --app dry-atoll-71007
