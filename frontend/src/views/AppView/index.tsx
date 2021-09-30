@@ -67,7 +67,7 @@ const AppView: React.FC = () => {
   const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
 
   useEffect(() => {
-    const socket = socketIOClient(process.env.REACT_APP_SOCKET_URL!, { transports: ['websocket'] });
+    const socket = socketIOClient(process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SOCKET_URL!, { transports: ['websocket'] });
     socket.emit('new user', userData.id);
     socket.on('fetch messages', (id: string) => fetchMessages(id));
     socket.on('fetch group', fetchGroups);
@@ -109,7 +109,7 @@ const AppView: React.FC = () => {
 
     let verifiedToken;
     try {
-      verifiedToken = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/verify`, {
+      verifiedToken = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/verify`, {
         id,
         token
       });
@@ -124,7 +124,7 @@ const AppView: React.FC = () => {
 
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/groups`, {
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups`, {
         title,
         description: description ? description : 'No description.'
       });
@@ -149,7 +149,7 @@ const AppView: React.FC = () => {
 
     let verifiedToken;
     try {
-      verifiedToken = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/verify`, {
+      verifiedToken = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/verify`, {
         id,
         token
       });
@@ -164,7 +164,7 @@ const AppView: React.FC = () => {
 
     let response;
     try {
-      response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/edit`, {
+      response = await axios.put(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/edit`, {
         id,
         username,
         image
@@ -186,7 +186,7 @@ const AppView: React.FC = () => {
     // post the message by this user, into the current group, then instruct socket to reload messages
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/messages`, {
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/messages`, {
         gid: currentGroup?._id,
         text,
         username: userData.username,
@@ -206,7 +206,7 @@ const AppView: React.FC = () => {
   const fetchGroups = async () => {
     let response;
     try {
-      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/groups`);
+      response = await axios.get(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups`);
     } catch (error) {
       console.log('[ERROR][GROUPS][FETCH]: ', error);
       setSnack({ open: true, severity: 'error', message: `An error occured: Could not fetch groups.` });
@@ -223,7 +223,7 @@ const AppView: React.FC = () => {
     if (!gid) return;
     let response;
     try {
-      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/groups/${gid}`);
+      response = await axios.get(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups/${gid}`);
     } catch (error) {
       console.log('[ERROR][MESSAGES][FETCH]: ', error);
       setSnack({ open: true, severity: 'error', message: `An error occured: Could not fetch messages and members.` });
@@ -244,7 +244,7 @@ const AppView: React.FC = () => {
     if (!mid) return;
     let response;
     try {
-      response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/messages/${mid}`);
+      response = await axios.delete(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/messages/${mid}`);
     } catch (error) {
       console.log('[ERROR][MESSAGES][DELETE]: ', error);
       setSnack({ open: true, severity: 'error', message: `An error occured: Could not delete messages.` });
@@ -266,7 +266,7 @@ const AppView: React.FC = () => {
 
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/bugs`, {
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/bugs`, {
         id,
         title,
         description: description ? description : 'No description.'
@@ -322,7 +322,7 @@ const AppView: React.FC = () => {
     if (!uid) return;
     let response;
     try {
-      response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/users/forrest/${uid}`);
+      response = await axios.get(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/forrest/${uid}`);
   
     } catch (error) {
       console.log('[ERROR][FORREST]: ', error);
@@ -339,7 +339,7 @@ const AppView: React.FC = () => {
     let response;
 
     try {
-      response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/users/forrest`, {
+      response = await axios.put(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/forrest`, {
         id : uid,
         forrest : time
       });

@@ -48,7 +48,7 @@ const AuthView: React.FC<Props> = props => {
   const verifyRequest = async (id: string, token: string) => {
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/verify`, {
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/verify`, {
         id,
         token
       });

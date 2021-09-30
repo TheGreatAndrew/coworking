@@ -82,7 +82,7 @@ io.on('connection', socket => {
 
 // Connect to DB && Start server
 mongoose
-  .connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .connect("mongodb+srv://admin:admin@cluster0.o6hrs.mongodb.net/coworking?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => {
     server.listen(process.env.PORT || 5000, () =>
       console.log(`Server up and running on port ${process.env.PORT || 5000}!`)

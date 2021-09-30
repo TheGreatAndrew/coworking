@@ -17,7 +17,7 @@ const Welcome: React.FC<Props> = props => {
   const guestRequest = async () => {
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/guest`);
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL|| process.env.REACT_APP_SERVER_URL}/users/guest`);
     } catch (error) {
       console.log('[ERROR][AUTH][GUEST]: ', error);
       return;

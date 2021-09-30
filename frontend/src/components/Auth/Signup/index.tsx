@@ -33,7 +33,7 @@ const Signup: React.FC<Props> = props => {
     setIsLoading(true);
     let response;
     try {
-      response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/users/signup`, {
+      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/signup`, {
         checked,
         email: email.toLowerCase(),
         password: password.toLowerCase(),
