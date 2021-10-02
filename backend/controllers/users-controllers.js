@@ -198,7 +198,6 @@ const fetchForrest = async (req, res, next) => {
 }
 
 const incrementForrest = async (req, res, next) => {
-  // TODO : change id to uid
   const { id, forrest } = req.body;
 
   // Find user by id

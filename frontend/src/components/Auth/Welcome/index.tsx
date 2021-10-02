@@ -13,18 +13,18 @@ type Props = {};
 const Welcome: React.FC<Props> = props => {
   const dispatch = useDispatch();
 
-  // Async Requests
-  const guestRequest = async () => {
-    let response;
-    try {
-      response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL|| process.env.REACT_APP_SERVER_URL}/users/guest`);
-    } catch (error) {
-      console.log('[ERROR][AUTH][GUEST]: ', error);
-      return;
-    }
-    if (!response.data.access) return;
-    dispatch({ type: 'GUEST', payload: { ...response.data.user } });
-  };
+  // // Async Requests
+  // const guestRequest = async () => {
+  //   let response;
+  //   try {
+  //     response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL|| process.env.REACT_APP_SERVER_URL}/users/guest`);
+  //   } catch (error) {
+  //     console.log('[ERROR][AUTH][GUEST]: ', error);
+  //     return;
+  //   }
+  //   if (!response.data.access) return;
+  //   dispatch({ type: 'GUEST', payload: { ...response.data.user } });
+  // };
 
   return (
     <div className={styles.container}>
@@ -35,9 +35,9 @@ const Welcome: React.FC<Props> = props => {
       <Link to="/signup">
         <CustomButton onClick={() => {}} isPurple={true} title="Signup" small={false} />
       </Link>
-      <p className={styles.guest} onClick={guestRequest}>
+      {/* <p className={styles.guest} onClick={guestRequest}>
         Continue as guest
-      </p>
+      </p> */}
     </div>
   );
 };

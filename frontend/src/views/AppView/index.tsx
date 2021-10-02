@@ -201,6 +201,8 @@ const AppView: React.FC = () => {
     }
     if (!response) return;
     socket?.emit('message', userData.id, currentGroup?._id);
+    fetchMessages()
+
   };
 
   const fetchGroups = async () => {
@@ -256,8 +258,9 @@ const AppView: React.FC = () => {
       setSnack({ open: true, severity: 'error', message: `An error occured: Could not delete messages.` });
       return;
     }
-    fetchMessages()
     dispatch({ type: 'DELETE MESSAGES', payload: { messages: response.data.messages, members: response.data.members } });
+    fetchMessages()
+
   };
 
 
@@ -296,6 +299,7 @@ const AppView: React.FC = () => {
       <div className={styles.main}>
         <MainTopBar title={currentGroup?.title} menuClick={() => setMobile(true)} />
         <Messages messages={messages} onClick={() => setMobile(false)} onDelete={deleteMessage}loading={loading} />
+        {/* TODO */}
         <MsgInput sendClick={createMessage} onClick={() => setMobile(false)} />
       </div>
     );
@@ -397,7 +401,6 @@ const AppView: React.FC = () => {
       {modal === 'edit' && <EditProfile onEdit={editProfileRequest} fetchForrest={fetchForrest}/>}
       {modal === 'bug' && <Modal onCreate={reportBug} title="Bug Report"/>}
       {modal === 'forrest' && <ForrestModal incrementForrest={incrementForrest} title="Focus" />}
-      
       <Snackbar
         open={snack.open}
         onClose={() => setSnack({ open: false, severity: snack.severity, message: null })}

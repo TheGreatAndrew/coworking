@@ -45,3 +45,7 @@ heroku create
 heroku container:login
 heroku container:push web --app whispering-gorge-69756
 heroku container:release web  --app whispering-gorge-69756
+
+HEROKU USEFUL COMMANDS
+heroku logs --tail --app radiant-anchorage-81110
+heroku ps:scale web=2 --app radiant-anchorage-81110

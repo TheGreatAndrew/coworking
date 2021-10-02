@@ -54,6 +54,7 @@ const Modal: React.FC<Props> = props => {
       <div className={styles.backdrop} onClick={() => dispatch({ type: 'MODAL', payload: { modal: null } })}></div>
       <div className={styles.modal}>
         <h2>{props.title}</h2>
+        <text>or email me at andrewvu0203@gmail.com</text>
         <ThemeProvider theme={darkTheme}>
           <form className={styles.form} onSubmit={e => e.preventDefault()}>
             <TextField

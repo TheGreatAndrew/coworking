@@ -60,21 +60,6 @@ type PropsMessages = {
   
 };
 
-
-// TODO
-// click 'message' show the menu (done)
-// button is ugly -> how many types of clickable 
-// show menu 
-// show menu with options 
-// show menu at that x, y location
-// delete option clickable
-
-// document.addEventListener('contextmenu', event => {
-//   event.preventDefault();
-//   console.log("norm 2021");
-//   }
-// );
-
 const Messages: React.FC<PropsMessages> = props => {
   useEffect(() => {
     const chatElement = document.getElementById('chat');
