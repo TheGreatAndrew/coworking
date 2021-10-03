@@ -40,7 +40,7 @@ const Message: React.FC<PropsMessage> = props => {
       <div className={styles.textBox}>
         <p className={styles.username}>
           {props.username} <span className={styles.date}>{props.date}</span>
-          {hiddens ? <button className={styles.button1}  onClick={()=>props.onDelete(id)}> Delete me :(</button> : null}
+          {hiddens ? <button className={styles.button1}  onClick={()=>props.onDelete(id)}> Delete(</button> : null}
         </p>
         <p className={styles.message}>{props.text}</p>  
       </div>

@@ -8,6 +8,7 @@ const schema = new Schema({
   password: { type: String },
   image: { type: String, required: true },
   forrest : {type: Number},
+  banned : {type: Boolean}
 });
 
 module.exports = mongoose.model('User', schema);

@@ -20,7 +20,7 @@ const checkToken = async (id, token) => {
   return decodedToken.data == id;
 };
 
-const isRevoked = async id => {
+const revokeToken = async id => {
 
   const token = await jwt.sign(
     {
@@ -35,4 +35,4 @@ const isRevoked = async id => {
 
 exports.createToken = createToken;
 exports.checkToken = checkToken;
-exports.isRevoked = isRevoked;
+exports.revokeToken = revokeToken;

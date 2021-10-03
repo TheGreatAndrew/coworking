@@ -6,7 +6,7 @@ const generator = new AvatarGenerator();
 
 // Local Imports
 const User = require('../models/user');
-const { createToken, checkToken , isRevoked } = require('../utils/token');
+const { createToken, checkToken , revokeToken } = require('../utils/token');
 
 const findUserWithEmail = async email => {
   let user;
@@ -32,6 +32,15 @@ const login = async (req, res, next) => {
   const user = await findUserWithEmail(email);
   if (!user) {
     res.json({ message: 'Access denied, incorrect Email.', access: false });
+    return next();
+  }
+
+  // ban user can't login
+  if(user.banned){
+    res.json({
+      message: 'Your Account Has Been Banned',
+      access : false
+    });
     return next();
   }
 
@@ -75,7 +84,7 @@ const signup = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(password, 8);
 
   // Create new user.
-  const newUser = new User({ email, password: hashedPassword, username, image: defaultImage});
+  const newUser = new User({ email, password: hashedPassword, username, image: defaultImage, banned: false});
   try {
     await newUser.save();
   } catch (error) {
@@ -176,6 +185,44 @@ const edit = async (req, res, next) => {
   });
 };
 
+// from admin, send axious request to ban user 
+const banUser = async (req, res, next) => {
+  const { email } = req.body;
+
+  // Input validation
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.json({ message: 'Access denied, invalid Entries.', access: false });
+    return next();
+  }
+
+  // Find User with email
+  const user = await findUserWithEmail(email);
+  if (!user) {
+    res.json({ message: 'Access denied, incorrect Email.', access: false });
+    return next();
+  }
+
+  // ban user
+  user.banned = true;
+  try {
+    await user.save();
+  } catch (error) {
+    return next(new Error('[ERROR][USERS] Could not ban user : ' + error));
+  }
+
+  // revoke token
+  await revokeToken(user.id);
+
+  // Send response
+  res.json({
+    message: '[USER][BAN] User is banned.',
+    access: true,
+    user: { banned : user.banned }
+  });
+  
+}
+
 
 const fetchForrest = async (req, res, next) => {
   const { uid } = req.params;
@@ -236,3 +283,4 @@ exports.signup = signup;
 exports.edit = edit;
 exports.guest = guest;
 exports.verify = verify;
+exports.banUser = banUser;

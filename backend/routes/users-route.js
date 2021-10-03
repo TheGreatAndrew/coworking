@@ -6,6 +6,7 @@ const controllers = require('../controllers/users-controllers');
 
 const router = express.Router();
 
+// user
 router.post('/login', body('email').isEmail(), body('password').isLength({ min: 6, max: 20 }), controllers.login);
 router.post(
   '/signup',
@@ -17,6 +18,7 @@ router.post(
 router.put('/edit', body('username').isLength({ min: 3, max: 12 }), controllers.edit);
 router.post('/guest', controllers.guest);
 router.post('/verify', controllers.verify);
+router.post('/ban', body('email').isEmail(), controllers.banUser);
 
 
 // forrest
