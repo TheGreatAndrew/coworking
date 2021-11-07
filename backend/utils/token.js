@@ -10,7 +10,7 @@ const createToken = async id => {
       data: id
     },
     process.env.JWT_SECRET,
-    { expiresIn: '72h' }
+    { expiresIn: '24h' }
   );
   return token;
 };

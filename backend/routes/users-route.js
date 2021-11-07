@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 
 // Local Imports
 const controllers = require('../controllers/users-controllers');
+// const {authUser} = require('../roles/roles');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.post(
 );
 router.put('/edit', body('username').isLength({ min: 3, max: 12 }), controllers.edit);
 router.post('/guest', controllers.guest);
-router.post('/verify', controllers.verify);
+router.post('/verify', controllers.verify); 
 router.post('/ban', body('email').isEmail(), controllers.banUser);
 
 

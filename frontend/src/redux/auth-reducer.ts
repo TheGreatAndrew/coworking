@@ -23,6 +23,7 @@ type UserAction = {
   const reducer = ( state = initialState, action: UserAction) => {
     switch(action.type) {
       case 'LOGIN':
+        
         return {...state, isLogged: true, username: action.payload.username, image: action.payload.image, token: action.payload.token, id: action.payload.id}
 
       case 'LOGOUT':
