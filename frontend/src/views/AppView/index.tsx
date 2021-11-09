@@ -123,10 +123,12 @@ const AppView: React.FC = () => {
     }
 
     let response;
+    console.log(id);
     try {
       response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups`, {
         title,
-        description: description ? description : 'No description.'
+        description: description ? description : 'No description.',
+        uid: id
       });
     } catch (error) {
       console.log('[ERROR][GROUPS][CREATE]: ', error);
@@ -298,7 +300,7 @@ const AppView: React.FC = () => {
     mainContent = (
       <div className={styles.main}>
         <MainTopBar title={currentGroup?.title} menuClick={() => setMobile(true)} />
-        <Messages messages={messages} onClick={() => setMobile(false)} onDelete={deleteMessage}loading={loading} />
+        <Messages messages={messages} onClick={() => setMobile(false)} onDelete={deleteMessage} loading={loading} />
         {/* TODO */}
         <MsgInput sendClick={createMessage} onClick={() => setMobile(false)} />
       </div>

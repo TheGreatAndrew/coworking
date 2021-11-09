@@ -2,6 +2,7 @@ const { validationResult } = require('express-validator');
 
 // Local Imports
 const Group = require('../models/group');
+const User = require('../models/user');
 
 const fetchGroups = async (req, res, next) => {
   // Fetch all groups
@@ -36,7 +37,7 @@ const fetchGroupData = async (req, res, next) => {
 };
 
 const createGroup = async (req, res, next) => {
-  const { title, description } = req.body;
+  const { title, description, uid } = req.body;
 
   // Input validation
   const errors = validationResult(req);
@@ -44,8 +45,16 @@ const createGroup = async (req, res, next) => {
     return next(new Error('[ERROR][GROUPS] Invalid entries: ' + error));
   }
 
+  // 
+  let owner;
+  try {
+    owner = await User.findById(uid);
+  } catch (error) {
+    return next(new Error('[ERROR][MESSAGES] Could not find owner by id: ' + error));
+  }
+
   // Create Group
-  const newGroup = new Group({ title, description, members: [], messages: [] });
+  const newGroup = new Group({ title, description, owner, members: [], messages: [] });
   try {
     await newGroup.save();
   } catch (error) {
