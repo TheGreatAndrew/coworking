@@ -15,6 +15,7 @@ import BottomBar from '../../components/Side/BottomBar/index';
 import Search from '../../components/Side/Search/index';
 import Groups from '../../components/Side/Groups/index';
 import GroupInfo from '../../components/Side/GroupInfo/index';
+import Member from '../../components/Side/Members/Member';
 import Members from '../../components/Side/Members/index';
 import EditProfile from '../../components/Shared/EditProfile/index';
 import styles from './styles.module.scss';
@@ -25,6 +26,7 @@ type GroupData = {
   _id: string;
   title: string;
   description: string;
+  owner : string;
   groupClick: () => void;
 };
 
@@ -294,7 +296,8 @@ const AppView: React.FC = () => {
     sideContent = (
       <div className={styles.sideContent}>
         <GroupInfo currentGroup={currentGroup} />
-        <Members members={members} loading={loading} />
+        
+        <Members owner={currentGroup.owner} members={members} loading={loading} />
       </div>
     );
     mainContent = (
