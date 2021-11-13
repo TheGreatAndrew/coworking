@@ -77,14 +77,15 @@ const deleteMessage = async (req, res, next) => {
 
   // if (!mid) return next(new Error('[ERROR][MESSAGES] wrong message id: '));
 
-  // Find group's messages
+  // find
   let message;
   try {
     message = await Message.findById(mid);
   } catch (error) {
-    return next(new Error('[ERROR][MESSAGES] Could not find group by id: ' + error));
+    return next(new Error('[ERROR][MESSAGES] Could not find message by id: ' + error));
   }
 
+  // delete
   message.deleteOne({ _id: mid }, function(err) {
     if (!err) {
             message.type = 'notification!';

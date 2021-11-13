@@ -11,6 +11,7 @@ router.get('/', controllers.fetchGroups);
 router.post('/', body('title').isLength({ min: 3, max: 12 }), controllers.createGroup);
 router.post('/invite/:gid', controllers.joinGroup);
 router.delete('/leave/:gid', controllers.leaveGroup);
+// router.delete('/:gid', controllers.deleteGroup);
 // router.delete('/kick/:uid', controllers.kickUser);
 
 

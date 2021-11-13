@@ -150,7 +150,7 @@ const leaveGroup = async (req, res, next) => {
     user = await User.findById(uid);
   } catch (error) {
     return next(
-      new Error("[ERROR][MESSAGES] Could not find user by id: " + error)
+      new Error("[ERROR][GROUP] Could not find user by id: " + error)
     );
   }
 
@@ -161,7 +161,7 @@ const leaveGroup = async (req, res, next) => {
   }
 
   // leave
-  if(isMember){
+  if (isMember) {
     const indexa = group.members.indexOf(user);
     group.members.splice(indexa, 1);
     const indexb = user.groups.indexOf(group);
@@ -182,16 +182,49 @@ const leaveGroup = async (req, res, next) => {
 
   // Send Response
   res.json({ message: "Group Leaved!" });
-
-
 };
 
+// const deleteGroup = async (req, res, next) => {
+//   const { gid } = req.body;
+
+//   // TODO authenticate
+
+//   // check if group existes
+//   let group;
+//   try {
+//     group = await Group.findById(gid);
+//   } catch (error) {
+//     return next(
+//       new Error("[ERROR][GROUP] Could not find group by id: " + error)
+//     );
+//   }
+
+//   // delete
+//   try {
+//     groups.deleteOne(group)
+//   } catch (error) {
+//     return next(
+//       new Error("[ERROR][GROUP] Could not delete group " + error)
+//     );
+//   }
+
+//   // save
+//   // try {
+//   //   await group.save();
+//   // } catch (error) {
+//   //   return next(
+//   //     new Error("[ERROR][GROUPS][USERS] Could not save group to DB: " + error)
+//   //   );
+//   // }
+
+//   // delete
+//   res.json({ message: "Group Deleted!" });
+// };
+
 const kickUser = async (req, res, next) => {
-  // TODO should i put all in req.body 
+  // TODO should i put all in req.body
   const gid = req.params.gid;
   const uid = req.body.uid;
-
-
 };
 
 exports.fetchGroups = fetchGroups;
@@ -199,3 +232,4 @@ exports.fetchGroupData = fetchGroupData;
 exports.createGroup = createGroup;
 exports.joinGroup = joinGroup;
 exports.leaveGroup = leaveGroup;
+// exports.deleteGroup = deleteGroup;
