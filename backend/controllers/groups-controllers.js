@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 
 // Local Imports
 const Group = require("../models/group");
+const user = require("../models/user");
 const User = require("../models/user");
 
 const fetchGroups = async (req, res, next) => {
@@ -129,7 +130,69 @@ const joinGroup = async (req, res, next) => {
   res.json({ message: "Group Joined!" });
 };
 
-const leaveGroup = async (req, res, next) => {};
+const leaveGroup = async (req, res, next) => {
+  const gid = req.params.gid;
+  const uid = req.body.uid;
+
+  // check if group existes
+  let group;
+  try {
+    group = await Group.findById(gid);
+  } catch (error) {
+    return next(
+      new Error("[ERROR][MESSAGES] Could not find group by id: " + error)
+    );
+  }
+
+  // check if member existes
+  let user;
+  try {
+    user = await User.findById(uid);
+  } catch (error) {
+    return next(
+      new Error("[ERROR][MESSAGES] Could not find user by id: " + error)
+    );
+  }
+
+  // check if already member
+  let isMember = false;
+  for (const member of group.members) {
+    if (member._id == uid) isMember = true;
+  }
+
+  // leave
+  if(isMember){
+    const indexa = group.members.indexOf(user);
+    group.members.splice(indexa, 1);
+    const indexb = user.groups.indexOf(group);
+    user.groups.splice(indexb, 1);
+  }
+
+  // save
+  try {
+    await group.save();
+    await user.save();
+  } catch (error) {
+    return next(
+      new Error(
+        "[ERROR][GROUPS][USERS] Could not save group or user to DB: " + error
+      )
+    );
+  }
+
+  // Send Response
+  res.json({ message: "Group Leaved!" });
+
+
+};
+
+const kickUser = async (req, res, next) => {
+  // TODO should i put all in req.body 
+  const gid = req.params.gid;
+  const uid = req.body.uid;
+
+
+};
 
 exports.fetchGroups = fetchGroups;
 exports.fetchGroupData = fetchGroupData;
