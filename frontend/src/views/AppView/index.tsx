@@ -359,21 +359,9 @@ const AppView: React.FC = () => {
     }
   }
 
-
-  // render forrest
-  const renderForrest = (
-    <div>Hello andrew {forrest}</div>
-  )
-
   return (
     <div className={styles.container}>
       <div className={mobile ? styles.mobile : styles.side}>
-        {/* <button onClick={()=>{
-          // changeForrestRedux();
-          if(userData.id) fetchForrest(userData.id)
-          if(userData.id) incrementForrest(userData.id, 10)
-        }}/> 
-        {renderForrest} */}
         <SideTopBar
           inChannel={inChannel}
           arrowClick={() => {

@@ -219,8 +219,31 @@ const banUser = async (req, res, next) => {
     message: '[USER][BAN] User is banned.',
     access: true,
     user: { banned : user.banned }
-  });
-  
+  }); 
+}
+
+const fetchJoinedGroups = async (req, res, next) => {
+  const uid = req.params.uid;
+
+  // check if member existes
+  let user;
+  try {
+    user = await User.findById(uid);
+  } catch (error) {
+    return next(
+      new Error("[ERROR][GROUP] Could not find user by id: " + error)
+    );
+  }
+
+  // fetch joined groups
+  groups = user.groups; 
+
+  console.log(uid);
+  console.log(user);
+  console.log(groups);
+
+  // Send Response
+  res.json({ message: "Joined Groups Fetched!", groups });
 }
 
 
@@ -284,3 +307,4 @@ exports.edit = edit;
 exports.guest = guest;
 exports.verify = verify;
 exports.banUser = banUser;
+exports.fetchJoinedGroups = fetchJoinedGroups;
