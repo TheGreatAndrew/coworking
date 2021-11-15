@@ -1,4 +1,3 @@
-
 SETUP 
 git clone https://github.com/KillianFrappartDev/GroupChat.git
 cd GroupChat/frontend && npm install
@@ -10,6 +9,9 @@ USEFUL COMMANDS
 TO KILL PORT 5000 
 sudo lsof -i :5000
 kill -9 PID
+
+5 NOTES
+for joined groups : change fetchGroups() to fetchJoinedGroups()
 
 POST http://localhost:5000/api/users/login
 {

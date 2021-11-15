@@ -40,11 +40,11 @@ const sendMessage = async (req, res, next) => {
     return next(new Error('[ERROR][MESSAGES] Could not find user by id: ' + error));
   }
 
-  let isMember = false;
-  for (const member of group.members) {
-    if (member._id == uid) isMember = true;
-  }
-  if (!isMember) group.members.push(user);
+  // let isMember = false;
+  // for (const member of group.members) {
+  //   if (member._id == uid) isMember = true;
+  // }
+  // if (!isMember) group.members.push(user);
 
   // Create message
   const newMessage = new Message({

@@ -209,6 +209,7 @@ const AppView: React.FC = () => {
 
   };
 
+  // TODO : comment this out
   const fetchGroups = async () => {
     let response;
     try {
@@ -218,12 +219,32 @@ const AppView: React.FC = () => {
       setSnack({ open: true, severity: 'error', message: `An error occured: Could not fetch groups.` });
       return;
     }
+
     if (!response) return;
     dispatch({
       type: 'FETCH GROUPS',
       payload: { displayedGroups: response.data.groups, groups: response.data.groups }
     });
   };
+
+  const fetchJoinedGroups = async () => {
+    const { id } = userData;
+
+    let response;
+    try {
+      response = await axios.get(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/users/groups/${id}`);
+    } catch (error) {
+      console.log('[ERROR][GROUPS][FETCH]: ', error);
+      setSnack({ open: true, severity: 'error', message: `An error occured: Could not fetch joined groups.` });
+      return;
+    }
+
+    if (!response) return;
+    dispatch({
+      type: 'FETCH GROUPS',
+      payload: { displayedGroups: response.data.groups, groups: response.data.groups }
+    });
+  }
 
   const fetchMessages = async (gid = currentGroup?._id) => {
     if (!gid) return;
@@ -246,7 +267,6 @@ const AppView: React.FC = () => {
 
 
   const deleteMessage = async (mid:string) => {
-    console.log(mid)
     if (!mid) return;
     let response;
     try {

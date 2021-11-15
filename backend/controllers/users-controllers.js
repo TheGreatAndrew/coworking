@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const { AvatarGenerator } = require('random-avatar-generator');
 const user = require('../models/user');
 const generator = new AvatarGenerator();
+const Group = require("../models/group");
 
 // Local Imports
 const User = require('../models/user');
@@ -236,11 +237,8 @@ const fetchJoinedGroups = async (req, res, next) => {
   }
 
   // fetch joined groups
-  groups = user.groups; 
-
-  console.log(uid);
-  console.log(user);
-  console.log(groups);
+  const temp = await User.findById(uid).populate('groups'); 
+  const groups = temp.groups;
 
   // Send Response
   res.json({ message: "Joined Groups Fetched!", groups });
