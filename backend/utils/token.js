@@ -15,6 +15,7 @@ const createToken = async id => {
   return token;
 };
 
+// check if data == id 
 const checkToken = async (id, token) => {
   const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
   return decodedToken.data == id;

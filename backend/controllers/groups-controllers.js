@@ -4,8 +4,17 @@ const { validationResult } = require("express-validator");
 const Group = require("../models/group");
 const user = require("../models/user");
 const User = require("../models/user");
+const jwt = require('jsonwebtoken');
 
 const fetchGroups = async (req, res, next) => {
+
+  jwt.verify(req.token, process.env.JWT_SECRET, (err, authorizedData) => {
+    if(err){
+        console.log('ERROR: Could not connect to the protected route');
+        res.sendStatus(403);
+    }
+  })
+
   // Fetch all groups
   let groups;
   try {
