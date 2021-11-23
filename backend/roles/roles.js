@@ -1,4 +1,4 @@
-function checkToken(req, res, next) {
+function authToken(req, res, next) {
   const header = req.headers["authorization"];
 
   if (typeof header !== "undefined") {
@@ -10,15 +10,6 @@ function checkToken(req, res, next) {
   } else {
     res.sendStatus(403);
   }
-}
-
-function authUser(req, res, next) {
-  if (req.user == null) {
-    res.status(403);
-    return res.send("You need to sign in");
-  }
-
-  next();
 }
 
 function authRole(role) {
@@ -33,7 +24,5 @@ function authRole(role) {
 }
 
 module.exports = {
-  checkToken,
-  authUser,
-  authRole,
+  authToken,
 };
