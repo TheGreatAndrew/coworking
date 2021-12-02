@@ -131,9 +131,9 @@ const joinGroup = async (req, res, next) => {
   res.json({ message: "Group Joined!" });
 };
 
+// TODO : check if user already in a group 
 const leaveGroup = async (req, res, next) => {
-  const gid = req.params.gid;
-  const uid = req.body.uid;
+  const {gid, uid} = req.params;
 
   // check if group existes
   let group;

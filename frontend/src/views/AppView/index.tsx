@@ -27,7 +27,9 @@ type GroupData = {
   title: string;
   description: string;
   owner : string;
-  groupClick: () => void;
+  openGroupClick: () => void;
+  leaveGroupClick: () => void;
+  
 };
 
 type SnackData = {
@@ -93,9 +95,31 @@ const AppView: React.FC = () => {
     dispatch({ type: 'LOGOUT' });
   };
 
-  const groupHandler = (id: string) => {
+
+  // TODO : 
+  const leaveGroupHandler = async (gid : string, uid: string) => {
+
+
+    // axios
+    let response;
+    try {
+      response = await axios.delete(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups/${gid}/members/${userData.id}`);
+    } catch (error) {
+      console.log('[ERROR][GROUPS][LEAVE]: ', error);
+      setSnack({ open: true, severity: 'error', message: `An error occured: Could not leave group.` });
+      return;
+    }
+    if (!response) return;
+
+    // dispatch and socket no need cause fetchGroup already included
+    fetchGroups();
+    setSnack({ open: true, severity: 'success', message: `group left.` });
+
+  }
+
+  const groupHandler = (gid: string) => {
     setLoading(true);
-    const current = groups.filter((item: GroupData) => item._id === id);
+    const current = groups.filter((item: GroupData) => item._id === gid);
     if (current.length > 0) {
       dispatch({ type: 'CHANGE GROUP', payload: { currentGroup: current[0] } });
     }
@@ -125,7 +149,6 @@ const AppView: React.FC = () => {
     }
 
     let response;
-    console.log(id);
     try {
       response = await axios.post(`${process.env.REACT_APP_MY_HEROKU_BACKEND_URL || process.env.REACT_APP_SERVER_URL}/groups`, {
         title,
@@ -312,6 +335,7 @@ const AppView: React.FC = () => {
   let sideContent;
   let mainContent;
 
+
   if (inChannel) {
     sideContent = (
       <div className={styles.sideContent}>
@@ -324,7 +348,6 @@ const AppView: React.FC = () => {
       <div className={styles.main}>
         <MainTopBar title={currentGroup?.title} menuClick={() => setMobile(true)} />
         <Messages messages={messages} onClick={() => setMobile(false)} onDelete={deleteMessage} loading={loading} />
-        {/* TODO */}
         <MsgInput sendClick={createMessage} onClick={() => setMobile(false)} />
       </div>
     );
@@ -335,7 +358,8 @@ const AppView: React.FC = () => {
           groups={groups}
           update={filteredGroups => dispatch({ type: 'SEARCH', payload: { displayedGroups: filteredGroups } })}
         />
-        <Groups groups={displayedGroups} groupClick={id => groupHandler(id)} />
+        <Groups groups={displayedGroups} openGroupClick={id => groupHandler(id)} leaveGroupClick={id => leaveGroupHandler(id, id)}/>
+
       </div>
     );
     mainContent = (

@@ -15,7 +15,8 @@ type Group = {
   _id: string;
   description: string;
   members: any;
-  groupClick: () => {};
+  openGroupClick: () => {};
+  leaveGroupClick: () => {};
 };
 
 const Search: React.FC<Props> = props => {
