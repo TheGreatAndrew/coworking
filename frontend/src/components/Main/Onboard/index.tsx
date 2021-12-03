@@ -22,7 +22,7 @@ const Onboard: React.FC<Props> = props => {
           <li>⭐️ Click on any channel you want to join.</li>
           <li>⭐️ Create a channel with the "+" icon.</li>
           <li>⭐️ Send messages with the text input.</li>
-          <li>⭐️ Browse channels with the search input.</li>
+          <li>⭐️ Browse groups with the search input.</li>
           <li>⭐️ Report a bug with the "bug" icon.</li>
           <li>⭐️ Click on your profile to edit.</li>
           <li>⭐️ Use the "exit" icon to logout.</li>
