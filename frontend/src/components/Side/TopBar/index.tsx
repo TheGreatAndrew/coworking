@@ -24,7 +24,7 @@ const TopBar: React.FC<Props> = props => {
               <ArrowBackIosIcon className={styles.arrow} />
             </IconButton>
           </Tooltip>
-          <h2 className={styles.title}>All groups</h2>
+          <h2 className={styles.title}>Go back</h2>
         </div>
       ) : (
         <div className={styles.wrapperOutChannel}>

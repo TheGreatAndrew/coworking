@@ -55,6 +55,7 @@ interface IRootState {
     members: [];
     groups: [];
     modal: null | "bug" | "edit" | "create" | "forrest";
+    groupModal: null | "group";
     forrest: number;
   };
 }
@@ -71,6 +72,7 @@ const AppView: React.FC = () => {
     members,
     groups,
     modal,
+    groupModal,
     forrest,
   } = useSelector((state: IRootState) => state.app);
 
@@ -316,6 +318,11 @@ const AppView: React.FC = () => {
     });
   };
 
+  const editGroupRequest = async (title: string, description : string, image: string) => {
+
+  }
+
+
   const createMessage = async (text: string, date: string) => {
     if (!socket) return;
 
@@ -527,7 +534,14 @@ const AppView: React.FC = () => {
   if (inChannel) {
     sideContent = (
       <div className={styles.sideContent}>
-        <GroupInfo currentGroup={currentGroup} />
+        <GroupInfo
+          currentGroup={currentGroup}
+          groupEditClick={() => {
+            dispatch({ type: "GROUP MODAL", payload: { groupModal: "group" } });
+            setMobile(false);
+          }}
+          groupModal={groupModal}
+        />
 
         <Members
           owner={currentGroup.owner}

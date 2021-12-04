@@ -9,6 +9,7 @@ type AppState = {
   groups: [];
   currentGroup: null;
   modal: null | 'bug' | 'edit' | 'create' | 'forrest';
+  groupModal : null | 'group';
   forrest : 0;
 };
 
@@ -22,6 +23,7 @@ type AppAction = {
     groups: [];
     currentGroup: {};
     modal: null | 'bug' | 'edit' | 'create' | 'forrest';
+    groupModal : null | 'group';
     forrest : 0;
   };
 };
@@ -35,6 +37,7 @@ const initialState: AppState = {
   groups: [],
   currentGroup: null,
   modal: null,
+  groupModal: null,
   forrest: 0
 };
 
@@ -52,12 +55,14 @@ const reducer = (state = initialState, action: AppAction) => {
     case 'FETCH JOINED GROUPS':
       return { ...state, joinedGroups : action.payload.joinedGroups };
   
-
     case 'FETCH MESSAGES':
       return { ...state, messages: action.payload.messages, members: action.payload.members };
 
     case 'MODAL':
       return { ...state, modal: action.payload.modal };
+
+    case 'GROUP MODAL':
+      return { ...state, groupModal: action.payload.groupModal };  
 
     case 'FETCH FORREST':
       return { ...state, forrest : action.payload.forrest}
