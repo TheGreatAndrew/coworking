@@ -1,7 +1,7 @@
 import React from "react";
 import { IconButton, Tooltip } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import EditGroup from '../../Shared/EditGroup/EditGroup';
+import EditGroup from "../../Shared/EditGroup/EditGroup";
 
 // Local Imports
 import styles from "./styles.module.scss";
@@ -11,19 +11,22 @@ type Props = {
     title: string;
     description: string;
   } | null;
-  groupModal : null | 'group';
-  groupEditClick : () => void;
+  groupModal: null | "group";
+  groupEditClick: () => void;
 };
 
 const GroupInfo: React.FC<Props> = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-      {props.groupModal === "group" && (
-        <EditGroup onEdit={()=>{}}/>
+        {props.groupModal === "group" && props.currentGroup !== null && (
+          <EditGroup currentGroup={props.currentGroup} onEdit={() => {}} />
         )}
         <Tooltip title="Edit Group" placement="bottom">
-          <IconButton className={styles.arrowButton} onClick={props.groupEditClick}>
+          <IconButton
+            className={styles.arrowButton}
+            onClick={props.groupEditClick}
+          >
             <EditIcon className={styles.arrow} />
           </IconButton>
         </Tooltip>
