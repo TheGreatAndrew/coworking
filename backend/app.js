@@ -57,7 +57,7 @@ io.on('connection', socket => {
 
   // New group
   socket.on('create group', (uid, title) => {
-    io.emit('fetch group');
+    io.emit('fetch all groups');
   });
 
   // New message

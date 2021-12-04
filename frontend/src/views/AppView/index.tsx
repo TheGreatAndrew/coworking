@@ -49,7 +49,8 @@ interface IRootState {
   app: {
     inChannel: boolean;
     currentGroup: GroupData;
-    displayedGroups: GroupData[];
+    allGroups: GroupData[];
+    joinedGroups: GroupData[];
     messages: [];
     members: [];
     groups: [];
@@ -64,7 +65,8 @@ const AppView: React.FC = () => {
   const {
     inChannel,
     currentGroup,
-    displayedGroups,
+    allGroups,
+    joinedGroups,
     messages,
     members,
     groups,
@@ -90,10 +92,13 @@ const AppView: React.FC = () => {
     );
     socket.emit("new user", userData.id);
     socket.on("fetch messages", (id: string) => fetchMessages(id));
-    socket.on("fetch group", fetchGroups);
+    socket.on("fetch all groups", fetchAllGroups);
+    socket.on("fetch joined groups", fetchJoinedGroups);
+
     // socket.on('fetch forrest', (uid: string) => fetchForrest(uid));
     setSocket(socket);
-    fetchGroups();
+    fetchAllGroups();
+    fetchJoinedGroups();
   }, []);
 
   // whenever switch to new group
@@ -110,7 +115,6 @@ const AppView: React.FC = () => {
     localStorage.removeItem("userData");
     dispatch({ type: "LOGOUT" });
   };
-
 
   // TODO : use uid and not userData.id
   const joinGroupHandler = async (gid: string, uid: string) => {
@@ -138,7 +142,8 @@ const AppView: React.FC = () => {
     if (!response) return;
 
     // dispatch and socket no need cause fetchGroup already included
-    fetchGroups();
+    fetchAllGroups();
+    fetchJoinedGroups();
     setSnack({ open: true, severity: "success", message: `group joined.` });
   };
 
@@ -165,7 +170,8 @@ const AppView: React.FC = () => {
     if (!response) return;
 
     // dispatch and socket no need cause fetchGroup already included
-    fetchGroups();
+    fetchAllGroups();
+    fetchJoinedGroups();
     setSnack({ open: true, severity: "success", message: `group left.` });
   };
 
@@ -234,7 +240,8 @@ const AppView: React.FC = () => {
     }
     if (!response) return;
     dispatch({ type: "MODAL", payload: { modal: null } });
-    fetchGroups();
+    fetchAllGroups();
+    fetchJoinedGroups();
     socket?.emit("create group", userData.id, title);
     setSnack({
       open: true,
@@ -343,8 +350,7 @@ const AppView: React.FC = () => {
     fetchMessages();
   };
 
-  // TODO : comment this out
-  const fetchGroups = async () => {
+  const fetchAllGroups = async () => {
     let response;
     try {
       response = await axios.get(
@@ -365,9 +371,9 @@ const AppView: React.FC = () => {
 
     if (!response) return;
     dispatch({
-      type: "FETCH GROUPS",
+      type: "FETCH ALL GROUPS",
       payload: {
-        displayedGroups: response.data.groups,
+        allGroups: response.data.groups,
         groups: response.data.groups,
       },
     });
@@ -396,10 +402,9 @@ const AppView: React.FC = () => {
 
     if (!response) return;
     dispatch({
-      type: "FETCH GROUPS",
+      type: "FETCH JOINED GROUPS",
       payload: {
-        displayedGroups: response.data.groups,
-        groups: response.data.groups,
+        joinedGroups: response.data.groups,
       },
     });
   };
@@ -549,17 +554,8 @@ const AppView: React.FC = () => {
   } else {
     sideContent = (
       <div className={styles.sideContent}>
-        <Search
-          groups={groups}
-          update={(filteredGroups) =>
-            dispatch({
-              type: "SEARCH",
-              payload: { displayedGroups: filteredGroups },
-            })
-          }
-        />
         <Groups
-          groups={displayedGroups}
+          groups={joinedGroups}
           openGroupClick={(id) => groupHandler(id)}
           leaveGroupClick={(id) => leaveGroupHandler(id, id)}
         />
@@ -570,10 +566,19 @@ const AppView: React.FC = () => {
         <div className={styles.main}>
           <div>
             <MainTopBar title="All Groups" menuClick={() => setMobile(false)} />
+            <Search
+              groups={groups}
+              update={(filteredGroups) =>
+                dispatch({
+                  type: "SEARCH",
+                  payload: { allGroups: filteredGroups },
+                })
+              }
+            />
             <GroupsDiscovery
-              groups={displayedGroups}
+              groups={allGroups}
               openGroupClick={(id) => joinGroupHandler(id, id)}
-              leaveGroupClick={()=>{}}
+              leaveGroupClick={() => {}}
             />
           </div>
         </div>

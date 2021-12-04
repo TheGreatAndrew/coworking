@@ -2,7 +2,8 @@
 
 type AppState = {
   inChannel: boolean;
-  displayedGroups: [];
+  allGroups: [];
+  joinedGroups: [];
   messages: [];
   members: [];
   groups: [];
@@ -14,7 +15,8 @@ type AppState = {
 type AppAction = {
   type: string;
   payload: {
-    displayedGroups: [];
+    allGroups: [];
+    joinedGroups: [];
     messages: [];
     members: [];
     groups: [];
@@ -28,7 +30,8 @@ const initialState: AppState = {
   inChannel: false,
   messages: [],
   members: [],
-  displayedGroups: [],
+  allGroups: [],
+  joinedGroups: [],
   groups: [],
   currentGroup: null,
   modal: null,
@@ -41,10 +44,14 @@ const reducer = (state = initialState, action: AppAction) => {
       return { ...state, currentGroup: action.payload.currentGroup, inChannel: true };
 
     case 'SEARCH':
-      return { ...state, displayedGroups: action.payload.displayedGroups };
+      return { ...state, allGroups: action.payload.allGroups };
 
-    case 'FETCH GROUPS':
-      return { ...state, displayedGroups: action.payload.displayedGroups, groups: action.payload.groups };
+    case 'FETCH ALL GROUPS':
+      return { ...state, allGroups: action.payload.allGroups, groups: action.payload.groups };
+
+    case 'FETCH JOINED GROUPS':
+      return { ...state, joinedGroups : action.payload.joinedGroups };
+  
 
     case 'FETCH MESSAGES':
       return { ...state, messages: action.payload.messages, members: action.payload.members };
@@ -60,7 +67,7 @@ const reducer = (state = initialState, action: AppAction) => {
         ...state,
         inChannel: false,
         currentGroup: null,
-        displayedGroups: state.groups,
+        allGroups: state.groups,
         members: [],
         messages: []
       };
