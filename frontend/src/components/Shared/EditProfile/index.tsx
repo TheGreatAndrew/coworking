@@ -47,7 +47,6 @@ const EditProfile: React.FC<Props> = props => {
 
   useEffect(() => {
       props.fetchForrest(id).then(data => {
-        console.log("hi " + data);
         setForrest(data);
       })
   }, [])

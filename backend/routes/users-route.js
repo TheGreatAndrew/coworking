@@ -21,7 +21,7 @@ router.post('/guest', controllers.guest);
 router.post('/verify', controllers.verify); 
 router.post('/ban', body('email').isEmail(), controllers.banUser);
 
-// forrest
+// user's group
 router.get('/groups/:uid', controllers.fetchJoinedGroups);
 
 // forrest

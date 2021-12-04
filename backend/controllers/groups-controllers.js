@@ -222,15 +222,47 @@ const leaveGroup = async (req, res, next) => {
 //   res.json({ message: "Group Deleted!" });
 // };
 
-const kickUser = async (req, res, next) => {
-  // TODO should i put all in req.body
-  const gid = req.params.gid;
-  const uid = req.body.uid;
-};
+const editGroup = async (req, res, next) => {
+  const { gid, title, description } = req.body;
+
+  // Input validation
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return next(new Error('[ERROR][GROUP] Edit invalid entries: ' + error));
+  }
+
+  // Find user by id
+  let group;
+  try {
+    group = await Group.findById(gid);
+  } catch (error) {
+    return next(new Error('[ERROR][GROUP] Could not find group by id: ' + error));
+  }
+
+  // Edit username and image
+  group.title = title;
+  group.description = description;
+
+  // Save changes
+  try {
+    await group.save();
+  } catch (error) {
+    return next(new Error('[ERROR][GROUP] Could not save group update: ' + error));
+  }
+
+  // Send response
+  res.json({
+    message: '[GROUP][EDIT] Group updated.',
+    access: true,
+    group: { title: group.title, description : group.description }
+  });
+}
+
 
 exports.fetchGroups = fetchGroups;
 exports.fetchGroupData = fetchGroupData;
 exports.createGroup = createGroup;
 exports.joinGroup = joinGroup;
 exports.leaveGroup = leaveGroup;
+exports.editGroup = editGroup;
 // exports.deleteGroup = deleteGroup;
