@@ -51,6 +51,7 @@ const Login: React.FC<Props> = props => {
     if (checked) {
       localStorage.setItem('userData', JSON.stringify({ id: response.data.user.id, token: response.data.user.token }));
     }
+    console.log("token is " + response.data.user.token);
     dispatch({ type: 'LOGIN', payload: { ...response.data.user } });
     history.push('');
     setIsLoading(false);

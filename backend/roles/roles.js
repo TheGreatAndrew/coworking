@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 function authToken(req, res, next) {
   const header = req.headers["authorization"];
 
@@ -6,6 +8,15 @@ function authToken(req, res, next) {
     const token = bearer[1];
 
     req.token = token;
+
+    // verify token 
+    jwt.verify(req.token, process.env.JWT_SECRET, (err, authorizedData) => {
+      if(err){
+          console.log('ERROR: Could not connect to the protected route');
+          res.sendStatus(403);
+      }
+    })
+
     next();
   } else {
     res.sendStatus(403);

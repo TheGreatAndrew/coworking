@@ -13,7 +13,7 @@ router.get('/', controllers.fetchGroups);
 router.post('/', body('title').isLength({ min: 3, max: 12 }), controllers.createGroup);
 router.post('/invite/:gid', controllers.joinGroup);
 router.delete('/:gid/members/:uid', controllers.leaveGroup);
-router.put('/edit', body('title').isLength({ min: 3, max: 12 }), controllers.editGroup);
+router.put('/edit', body('title').isLength({ min: 3, max: 12 }), authToken, controllers.editGroup);
 
 // router.delete('/:gid', controllers.deleteGroup);
 // router.delete('/kick/:uid', controllers.kickUser);
