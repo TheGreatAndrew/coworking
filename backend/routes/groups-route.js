@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 
 // Local Imports
 const controllers = require('../controllers/groups-controllers');
-const { authToken } = require('../roles/roles');
+const { authToken, authAdminOfAGroup } = require('../roles/roles');
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.get('/', controllers.fetchGroups);
 router.post('/', body('title').isLength({ min: 3, max: 12 }), controllers.createGroup);
 router.post('/invite/:gid', controllers.joinGroup);
 router.delete('/:gid/members/:uid', controllers.leaveGroup);
-router.put('/edit', body('title').isLength({ min: 3, max: 12 }), authToken, controllers.editGroup);
+router.put('/edit', body('title').isLength({ min: 3, max: 12 }), authToken, authAdminOfAGroup, controllers.editGroup);
 
 // router.delete('/:gid', controllers.deleteGroup);
 // router.delete('/kick/:uid', controllers.kickUser);
