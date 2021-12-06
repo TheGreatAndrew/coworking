@@ -24,8 +24,22 @@ const authToken = (req, res, next) => {
   }
 }
 
-function authSelf(req, res, next) {
-  // check if he is the one who is managing his profile
+function authSelf(user) {
+  return (req, res, next) => {
+
+    console.log(user);
+    console.log(req);
+
+
+  }
+
+
+  // authDeleteMessage() 
+  // canDeleteMessage(assign req.params.uid = messageId.uid)
+  // authSelf(check token.uid == req.params.uid) currying 
+
+
+
 }
 
 const  authAdminOfAGroup = async (req, res, next) => {
@@ -78,5 +92,6 @@ const  authAdminOfAGroup = async (req, res, next) => {
 
 module.exports = {
   authToken,
+  authSelf,
   authAdminOfAGroup
 };

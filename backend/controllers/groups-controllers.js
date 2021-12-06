@@ -184,42 +184,25 @@ const leaveGroup = async (req, res, next) => {
   res.json({ message: "Group Leaved!" });
 };
 
-// const deleteGroup = async (req, res, next) => {
-//   const { gid } = req.body;
+const deleteGroup = async (req, res, next) => {
+  const { gid } = req.params;
 
-//   // TODO authenticate
+  // finish delete group
+  // TODO : remove references
 
-//   // check if group existes
-//   let group;
-//   try {
-//     group = await Group.findById(gid);
-//   } catch (error) {
-//     return next(
-//       new Error("[ERROR][GROUP] Could not find group by id: " + error)
-//     );
-//   }
-
-//   // delete
-//   try {
-//     groups.deleteOne(group)
-//   } catch (error) {
-//     return next(
-//       new Error("[ERROR][GROUP] Could not delete group " + error)
-//     );
-//   }
-
-//   // save
-//   // try {
-//   //   await group.save();
-//   // } catch (error) {
-//   //   return next(
-//   //     new Error("[ERROR][GROUPS][USERS] Could not save group to DB: " + error)
-//   //   );
-//   // }
-
-//   // delete
-//   res.json({ message: "Group Deleted!" });
-// };
+  // check if group existes
+  let group;
+  try {
+    group = await Group.findByIdAndDelete(gid);
+  } catch (error) {
+    return next(
+      new Error("[ERROR][GROUP] Could not find group by id to delete : " + error)
+    );
+  }
+  
+  // delete
+  res.json({ message: "Group Deleted!" });
+};
 
 const editGroup = async (req, res, next) => {
   const { gid, title, description } = req.body;
@@ -264,4 +247,4 @@ exports.createGroup = createGroup;
 exports.joinGroup = joinGroup;
 exports.leaveGroup = leaveGroup;
 exports.editGroup = editGroup;
-// exports.deleteGroup = deleteGroup;
+exports.deleteGroup = deleteGroup;
