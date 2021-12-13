@@ -13,6 +13,8 @@ type Props = {
   } | null;
   groupModal: null | "group";
   groupEditClick: () => void;
+  groupEditSubmit: (title: string, description : string, image: string) => void;
+  
 };
 
 const GroupInfo: React.FC<Props> = (props) => {
@@ -20,7 +22,7 @@ const GroupInfo: React.FC<Props> = (props) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         {props.groupModal === "group" && props.currentGroup !== null && (
-          <EditGroup currentGroup={props.currentGroup} onEdit={() => {}} />
+          <EditGroup currentGroup={props.currentGroup} onEditSubmit={props.groupEditSubmit} />
         )}
         <Tooltip title="Edit Group" placement="bottom">
           <IconButton

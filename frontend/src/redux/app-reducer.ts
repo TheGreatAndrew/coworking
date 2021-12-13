@@ -64,6 +64,10 @@ const reducer = (state = initialState, action: AppAction) => {
     case 'GROUP MODAL':
       return { ...state, groupModal: action.payload.groupModal };  
 
+    // TODO : change currentGroup to currentGroup.title
+    case 'GROUP EDIT':
+      return { ...state, currentGroup: action.payload.currentGroup };  
+
     case 'FETCH FORREST':
       return { ...state, forrest : action.payload.forrest}
 

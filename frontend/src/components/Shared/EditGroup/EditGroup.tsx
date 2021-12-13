@@ -25,7 +25,7 @@ type Props = {
     title: string;
     description: string;
   };
-  onEdit: (title: string) => void;
+  onEditSubmit: (title: string, description : string, image: string) => void;
 };
 
 interface IRootState {
@@ -49,13 +49,13 @@ const EditGroup: React.FC<Props> = (props) => {
     props.currentGroup.description
   );
 
-  const editHandler = (newtitle: string) => {
+  const editHandler = (newtitle: string, description : string, image : string) => {
     if (titleError) {
       setIsValid(false);
       return;
     }
 
-    props.onEdit(newtitle);
+    props.onEditSubmit(newtitle, description, image);
   };
 
   const titleHandler = (
@@ -112,7 +112,7 @@ const EditGroup: React.FC<Props> = (props) => {
               value={description}
             />
             <CustomButton
-              onClick={() => editHandler(newTitle)}
+              onClick={() => editHandler(newTitle, description, "")}
               isPurple
               title="Edit"
               small

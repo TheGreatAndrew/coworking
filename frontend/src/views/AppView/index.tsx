@@ -263,6 +263,7 @@ const AppView: React.FC = () => {
       return;
     }
 
+    // TODO : why do we need to verify token, remove this
     let verifiedToken;
     try {
       verifiedToken = await axios.post(
@@ -319,6 +320,53 @@ const AppView: React.FC = () => {
   };
 
   const editGroupRequest = async (title: string, description : string, image: string) => {
+    const { token } = userData;
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+
+    const bodyParameters = {
+      gid: currentGroup?._id,
+      title,
+      description
+    }
+
+    let response;
+    try {
+      response = await axios.put(
+        `${
+          process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
+          process.env.REACT_APP_SERVER_URL
+        }/groups/edit`,
+        bodyParameters,
+        config
+      );
+    } catch (error) {
+      console.log("[ERROR][GROUPS][EDIT]: ", error);
+      setSnack({
+        open: true,
+        severity: "error",
+        message: `An error occured: Could not edit group's info.`,
+      });
+      return;
+    }
+
+    if (!response) return;
+  
+    setSnack({ open: true, severity: "success", message: `Refresh to see changes` });
+    dispatch({ type: "GROUP MODAL", payload: { groupModal: null } });
+
+
+    // TODO : refresh group with new title, description -> has to include title in GroupAction, has to fetch from useSelector 
+    // 
+
+    // dispatch({
+    //   type: "GROUP EDIT",
+    //   payload: {
+    //     currentGroup : currentGroup
+    //   },
+    // });
 
   }
 
@@ -540,6 +588,7 @@ const AppView: React.FC = () => {
             dispatch({ type: "GROUP MODAL", payload: { groupModal: "group" } });
             setMobile(false);
           }}
+          groupEditSubmit={editGroupRequest}
           groupModal={groupModal}
         />
 

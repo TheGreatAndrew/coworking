@@ -195,8 +195,7 @@ const leaveGroup = async (req, res, next) => {
 const deleteGroup = async (req, res, next) => {
   const { gid } = req.params;
 
-  // finish delete group
-  // TODO : remove references
+  // TODO : finish deleteGroup -> remove references
 
   // check if group existes
   let group;
