@@ -3,7 +3,7 @@ const { validationResult } = require("express-validator");
 // Local Imports
 const Group = require("../models/group");
 const User = require("../models/user");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const user = require("../models/user");
 
 const fetchGroups = async (req, res, next) => {
@@ -68,8 +68,7 @@ const createGroup = async (req, res, next) => {
     messages: [],
   });
 
-
-  // push owner to member 
+  // push owner to member
   newGroup.members.push(owner);
   owner.groups.push(newGroup);
 
@@ -81,7 +80,6 @@ const createGroup = async (req, res, next) => {
       new Error("[ERROR][GROUPS] Could not save group to DB: " + error)
     );
   }
-
 
   // Send Response
   res.json({ message: "Group Created!" });
@@ -139,9 +137,9 @@ const joinGroup = async (req, res, next) => {
   res.json({ message: "Group Joined!" });
 };
 
-// TODO : check if user already in a group 
+// TODO : check if user already in a group
 const leaveGroup = async (req, res, next) => {
-  const {gid, uid} = req.params;
+  const { gid, uid } = req.params;
 
   // check if group existes
   let group;
@@ -171,9 +169,10 @@ const leaveGroup = async (req, res, next) => {
 
   // leave
   if (isMember) {
-    const indexa = group.members.indexOf(user);
+    const indexa = group.members.indexOf(uid);
     group.members.splice(indexa, 1);
-    const indexb = user.groups.indexOf(group);
+
+    const indexb = user.groups.indexOf(gid);
     user.groups.splice(indexb, 1);
   }
 
@@ -205,10 +204,12 @@ const deleteGroup = async (req, res, next) => {
     group = await Group.findByIdAndDelete(gid);
   } catch (error) {
     return next(
-      new Error("[ERROR][GROUP] Could not find group by id to delete : " + error)
+      new Error(
+        "[ERROR][GROUP] Could not find group by id to delete : " + error
+      )
     );
   }
-  
+
   // delete
   res.json({ message: "Group Deleted!" });
 };
@@ -219,7 +220,7 @@ const editGroup = async (req, res, next) => {
   // Input validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return next(new Error('[ERROR][GROUP] Edit invalid entries: ' + error));
+    return next(new Error("[ERROR][GROUP] Edit invalid entries: " + error));
   }
 
   // Find user by id
@@ -227,7 +228,9 @@ const editGroup = async (req, res, next) => {
   try {
     group = await Group.findById(gid);
   } catch (error) {
-    return next(new Error('[ERROR][GROUP] Could not find group by id: ' + error));
+    return next(
+      new Error("[ERROR][GROUP] Could not find group by id: " + error)
+    );
   }
 
   // Edit username and image
@@ -238,17 +241,18 @@ const editGroup = async (req, res, next) => {
   try {
     await group.save();
   } catch (error) {
-    return next(new Error('[ERROR][GROUP] Could not save group update: ' + error));
+    return next(
+      new Error("[ERROR][GROUP] Could not save group update: " + error)
+    );
   }
 
   // Send response
   res.json({
-    message: '[GROUP][EDIT] Group updated.',
+    message: "[GROUP][EDIT] Group updated.",
     access: true,
-    group: { title: group.title, description : group.description }
+    group: { title: group.title, description: group.description },
   });
-}
-
+};
 
 exports.fetchGroups = fetchGroups;
 exports.fetchGroupData = fetchGroupData;
