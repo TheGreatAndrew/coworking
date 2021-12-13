@@ -1,3 +1,5 @@
+~~~~~ NOTE
+
 SETUP 
 git clone https://github.com/KillianFrappartDev/GroupChat.git
 cd GroupChat/frontend && npm install
@@ -12,6 +14,15 @@ kill -9 PID
 
 5 NOTES
 for joined groups : change fetchGroups() to fetchJoinedGroups()
+mongodb schema for message ->
+mongodb schema for group's role ->
+mongodb for orphaned -> https://stackoverflow.com/questions/34464861/pre-and-post-remove-middleware-not-firing/34464916#34464916
+
+
+
+
+~~~~~ HTTPS
+
 
 POST http://localhost:5000/api/users/login
 {
@@ -24,6 +35,12 @@ PUT http://localhost:5000/api/users/forrest
     "id" : "612465467652f61e242d89a6",
     "forrest" : "20"
 }
+
+
+
+
+
+~~~~~ DEPLOYMENT
 
 DOCKER TO RUN ROOT DIRECTORY
 docker-compose up

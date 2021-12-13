@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 const Group = require("../models/group");
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
+const user = require("../models/user");
 
 const fetchGroups = async (req, res, next) => {
   // Fetch all groups
@@ -66,13 +67,21 @@ const createGroup = async (req, res, next) => {
     members: [],
     messages: [],
   });
+
+
+  // push owner to member 
+  newGroup.members.push(owner);
+  owner.groups.push(newGroup);
+
   try {
     await newGroup.save();
+    await owner.save();
   } catch (error) {
     return next(
       new Error("[ERROR][GROUPS] Could not save group to DB: " + error)
     );
   }
+
 
   // Send Response
   res.json({ message: "Group Created!" });
