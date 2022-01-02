@@ -121,6 +121,16 @@ const AppView: React.FC = () => {
 
   // TODO : use uid and not userData.id
   const joinGroupHandler = async (gid: string, uid: string) => {
+    const { token } = userData;
+
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+
+    const bodyParameters = {
+      uid : userData.id
+    }
+
     // axios
     let response;
     try {
@@ -129,9 +139,8 @@ const AppView: React.FC = () => {
           process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
           process.env.REACT_APP_SERVER_URL
         }/groups/invite/${gid}`,
-        {
-          uid: userData.id,
-        }
+        bodyParameters,
+        config
       );
     } catch (error) {
       console.log("[ERROR][GROUPS][JOIN]: ", error);
@@ -606,6 +615,7 @@ const AppView: React.FC = () => {
       <div className={styles.main}>
         <ChatTopBar
           title={currentGroup?.title}
+
           menuClick={() => setMobile(true)}
         />
         <Messages

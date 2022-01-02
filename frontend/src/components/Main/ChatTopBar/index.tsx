@@ -12,7 +12,20 @@ type Props = {
 
 const addUserToGroup = async () => {
 
+  // put middleware, and change joinGroupHandler() -> test if joinGroup works 
+  // store form input -> useState() 
 
+
+  // get token for Bearer 
+  // get gid
+  // get uid from form 
+
+
+  // send axios 
+
+
+
+ 
 }
 
 const TopBar: React.FC<Props> = (props) => {

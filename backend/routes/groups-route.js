@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/:gid', controllers.fetchGroupData);
 router.get('/', controllers.fetchGroups);
 router.post('/', body('title').isLength({ min: 3, max: 12 }), controllers.createGroup);
-router.post('/invite/:gid', controllers.joinGroup);
+router.post('/invite/:gid', authToken, controllers.joinGroup);
 router.delete('/:gid/members/:uid', controllers.leaveGroup);
 router.put('/edit', body('title').isLength({ min: 3, max: 12 }), authToken, authAdminOfAGroup, controllers.editGroup);
 
