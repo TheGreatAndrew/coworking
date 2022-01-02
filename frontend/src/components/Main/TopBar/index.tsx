@@ -18,6 +18,8 @@ const TopBar: React.FC<Props> = props => {
           <MenuIcon className={styles.menu} fontSize="large" />
         </IconButton>
         <h2 className={styles.title}>{props.title}</h2>
+        {/* <h2>example</h2> */}
+
       </div>
     </div>
   );

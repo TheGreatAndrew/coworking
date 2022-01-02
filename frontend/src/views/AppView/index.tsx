@@ -9,6 +9,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import Onboard from "../../components/Main/Onboard/index";
 import Messages from "../../components/Main/Messages/index";
 import MsgInput from "../../components/Main/MsgInput/index";
+import ChatTopBar from "../../components/Main/ChatTopBar";
 import MainTopBar from "../../components/Main/TopBar/index";
 import SideTopBar from "../../components/Side/TopBar/index";
 import BottomBar from "../../components/Side/BottomBar/index";
@@ -580,6 +581,7 @@ const AppView: React.FC = () => {
   let mainContent;
 
   if (inChannel) {
+
     sideContent = (
       <div className={styles.sideContent}>
         <GroupInfo
@@ -599,9 +601,10 @@ const AppView: React.FC = () => {
         />
       </div>
     );
+    // in chat mode
     mainContent = (
       <div className={styles.main}>
-        <MainTopBar
+        <ChatTopBar
           title={currentGroup?.title}
           menuClick={() => setMobile(true)}
         />
@@ -624,6 +627,7 @@ const AppView: React.FC = () => {
         />
       </div>
     );
+    // group list mode 
     if (isGroupDiscovery) {
       mainContent = (
         <div className={styles.main}>
@@ -647,6 +651,7 @@ const AppView: React.FC = () => {
         </div>
       );
     } else {
+      // default mode 
       mainContent = (
         <div className={styles.main}>
           <MainTopBar title="" menuClick={() => setMobile(true)} />
