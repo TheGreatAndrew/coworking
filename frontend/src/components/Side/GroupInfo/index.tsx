@@ -10,10 +10,11 @@ type Props = {
   currentGroup: {
     title: string;
     description: string;
+    isPrivate: boolean,
   } | null;
   groupModal: null | "group";
   groupEditClick: () => void;
-  groupEditSubmit: (title: string, description : string, image: string) => void;
+  groupEditSubmit: (title: string, description : string, image: string, isPrivate : boolean) => void;
   
 };
 

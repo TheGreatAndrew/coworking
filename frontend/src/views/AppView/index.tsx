@@ -29,6 +29,7 @@ type GroupData = {
   title: string;
   description: string;
   owner: string;
+  isPrivate: boolean,
   openGroupClick: () => void;
   leaveGroupClick: () => void;
 };
@@ -329,7 +330,7 @@ const AppView: React.FC = () => {
     });
   };
 
-  const editGroupRequest = async (title: string, description : string, image: string) => {
+  const editGroupRequest = async (title: string, description : string, image: string, isPrivate : boolean) => {
     const { token } = userData;
 
     const config = {
@@ -339,7 +340,8 @@ const AppView: React.FC = () => {
     const bodyParameters = {
       gid: currentGroup?._id,
       title,
-      description
+      description,
+      isPrivate
     }
 
     let response;

@@ -37,7 +37,8 @@ const TopBar: React.FC<Props> = (props) => {
   const [addUserValue, setAddUserValue] = useState('');
 
 
-  // TODO snackbar 
+  // TODO snackbar success or failure
+  // TODO socket io listen when members is added
   const addUserToGroup = async () => {  
     const { token } = userData;
 

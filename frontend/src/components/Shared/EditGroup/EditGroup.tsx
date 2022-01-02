@@ -3,11 +3,10 @@ import {
   TextField,
   CircularProgress,
   FormGroupClassKey,
+  Switch
 } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import sha1 from "sha1";
 import { useDispatch } from "react-redux";
 
 // Local Imports
@@ -24,8 +23,9 @@ type Props = {
   currentGroup: {
     title: string;
     description: string;
+    isPrivate: boolean;
   };
-  onEditSubmit: (title: string, description : string, image: string) => void;
+  onEditSubmit: (title: string, description : string, image: string, isPrivate : boolean) => void;
 };
 
 interface IRootState {
@@ -48,6 +48,9 @@ const EditGroup: React.FC<Props> = (props) => {
   const [description, setDescription] = useState(
     props.currentGroup.description
   );
+  const [isPrivate, setIsPrivate] = useState(props.currentGroup.isPrivate);
+
+  
 
   const editHandler = (newtitle: string, description : string, image : string) => {
     if (titleError) {
@@ -55,7 +58,7 @@ const EditGroup: React.FC<Props> = (props) => {
       return;
     }
 
-    props.onEditSubmit(newtitle, description, image);
+    props.onEditSubmit(newtitle, description, image, isPrivate);
   };
 
   const titleHandler = (
@@ -77,6 +80,10 @@ const EditGroup: React.FC<Props> = (props) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setDescription(e.target.value);
+  };
+
+  const isPrivateHandler = (e : any) => {
+    setIsPrivate(e.target.checked)
   };
 
   return (
@@ -111,6 +118,15 @@ const EditGroup: React.FC<Props> = (props) => {
               onChange={(e) => descriptionHandler(e)}
               value={description}
             />
+
+            <div>
+              <text>Private Group</text>
+              <Switch checked={isPrivate} onChange={isPrivateHandler}/>
+
+            </div>
+
+
+
             <CustomButton
               onClick={() => editHandler(newTitle, description, "")}
               isPurple

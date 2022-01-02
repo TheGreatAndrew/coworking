@@ -66,6 +66,7 @@ const createGroup = async (req, res, next) => {
     owner,
     members: [],
     messages: [],
+    isPrivate : false
   });
 
   // push owner to member
@@ -214,7 +215,7 @@ const deleteGroup = async (req, res, next) => {
 };
 
 const editGroup = async (req, res, next) => {
-  const { gid, title, description } = req.body;
+  const { gid, title, description, isPrivate } = req.body;
 
   // Input validation
   const errors = validationResult(req);
@@ -235,6 +236,7 @@ const editGroup = async (req, res, next) => {
   // Edit username and image
   group.title = title;
   group.description = description;
+  group.isPrivate = isPrivate
 
   // Save changes
   try {
@@ -249,7 +251,7 @@ const editGroup = async (req, res, next) => {
   res.json({
     message: "[GROUP][EDIT] Group updated.",
     access: true,
-    group: { title: group.title, description: group.description },
+    group: { title: group.title, description: group.description, isPrivate : group.isPrivate},
   });
 };
 
