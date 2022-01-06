@@ -34,8 +34,15 @@ const GroupInfo: React.FC<Props> = (props) => {
           </IconButton>
         </Tooltip>
 
-        <p className={styles.title}>{props.currentGroup?.title}</p>
+        <p className={styles.title}>group title : </p>
+        <p className={styles.description}>{props.currentGroup?.title}</p>
+
+        <p className={styles.title}>description (how this group studys) : </p>
         <p className={styles.description}>{props.currentGroup?.description}</p>
+
+        <p className={styles.title}>meeting link : </p>
+        <p className={styles.description}>url</p>
+
       </div>
     </div>
   );

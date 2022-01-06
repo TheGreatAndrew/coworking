@@ -9,6 +9,8 @@ import Cookie from '../../components/Shared/Cookie/index';
 import Welcome from '../../components/Auth/Welcome/index';
 import Login from '../../components/Auth/Login/index';
 import Signup from '../../components/Auth/Signup/index';
+import EnterEmail from '../../components/Auth/EnterEmail/index';
+
 
 // Landing Imports
 import AppRoute from '../../landingsrc/utils/AppRoute';
@@ -77,6 +79,8 @@ const AuthView: React.FC<Props> = props => {
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
+          <Route path="/resetpassword" exact component={EnterEmail} />
+
           <AppRoute path="/landing" component={Home} layout={LayoutDefault}/>
 
           <Route path="/" exact component={Welcome} />
