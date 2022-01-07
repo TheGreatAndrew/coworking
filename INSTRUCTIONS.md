@@ -37,17 +37,7 @@ PUT http://localhost:5000/api/users/forrest
 }
 
 
-
-
-
 ~~~~~ DEPLOYMENT
-
-DOCKER TO RUN ROOT DIRECTORY
-docker-compose up
-
-DOCKER TO REMOVE 
-docker-compose down -v
-
 HEROKU TO RUN FRONTEND WEB
 cd frontend
 heroku login
@@ -63,6 +53,18 @@ heroku login
 heroku container:login
 heroku container:push web --app whispering-gorge-69756
 heroku container:release web  --app whispering-gorge-69756
+
+change .env frontend
+change .env backend
+
+
+~~~~~ RUN
+
+DOCKER TO RUN ROOT DIRECTORY
+docker-compose up
+
+DOCKER TO REMOVE 
+docker-compose down -v
 
 HEROKU USEFUL COMMANDS
 heroku logs --tail --app online-coworking
