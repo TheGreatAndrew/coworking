@@ -6,6 +6,7 @@ const controllers = require('../controllers/passwords-controllers');
 const router = express.Router();
 
 router.post('/', controllers.sendPasswordResetEmail);
+router.post('/:uid/:token', controllers.verifyPasswordResetEmail);
 
 
 module.exports = router;
