@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 
 // Local Imports
 const controllers = require('../controllers/users-controllers');
-// const {authUser} = require('../roles/roles');
+const { authToken } = require('../roles/roles');
 
 const router = express.Router();
 
@@ -16,16 +16,16 @@ router.post(
   body('username').isLength({ min: 3, max: 12 }),
   controllers.signup
 );
-router.put('/edit', body('username').isLength({ min: 3, max: 12 }), controllers.edit);
+router.put('/edit', body('username').isLength({ min: 3, max: 12 }), authToken, controllers.edit);
 router.post('/guest', controllers.guest);
 router.post('/verify', controllers.verify); 
-router.post('/ban', body('email').isEmail(), controllers.banUser);
+router.post('/ban', body('email').isEmail(), authToken, controllers.banUser);
 
 // user's group
-router.get('/groups/:uid', controllers.fetchJoinedGroups);
+router.get('/groups/:uid', authToken, controllers.fetchJoinedGroups);
 
 // forrest
-router.put('/forrest', controllers.incrementForrest);
-router.get('/forrest/:uid', controllers.fetchForrest);
+router.put('/forrest', authToken, controllers.incrementForrest);
+router.get('/forrest/:uid', authToken, controllers.fetchForrest);
 
 module.exports = router;

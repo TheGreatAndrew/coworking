@@ -2,6 +2,8 @@ const express = require('express');
 
 // Local Imports
 const controllers = require('../controllers/passwords-controllers');
+const { authToken, authAdminOfAGroup } = require('../roles/roles');
+
 
 const router = express.Router();
 

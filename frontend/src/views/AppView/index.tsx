@@ -5,6 +5,7 @@ import socketIOClient from "socket.io-client";
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
+
 // Local Imports
 import Onboard from "../../components/Main/Onboard/index";
 import Messages from "../../components/Main/Messages/index";
@@ -88,6 +89,15 @@ const AppView: React.FC = () => {
   const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const [isGroupDiscovery, setGroupDiscovery] = useState(false);
 
+
+  axios.interceptors.request.use(function (config) {
+    const { token } = userData;
+
+    config.headers.Authorization =  `Bearer ${token}`;
+
+    return config;
+  });
+
   useEffect(() => {
     const socket = socketIOClient(
       process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
@@ -124,10 +134,6 @@ const AppView: React.FC = () => {
   const joinGroupHandler = async (gid: string, uid: string) => {
     const { token } = userData;
 
-    const config = {
-      headers: { Authorization: `Bearer ${token}` }
-    }
-
     const bodyParameters = {
       uid : userData.id
     }
@@ -141,7 +147,6 @@ const AppView: React.FC = () => {
           process.env.REACT_APP_SERVER_URL
         }/groups/invite/${gid}`,
         bodyParameters,
-        config
       );
     } catch (error) {
       console.log("[ERROR][GROUPS][JOIN]: ", error);
