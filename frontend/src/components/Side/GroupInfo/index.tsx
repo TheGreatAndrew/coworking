@@ -37,7 +37,7 @@ const GroupInfo: React.FC<Props> = (props) => {
         <p className={styles.title}>group title : </p>
         <p className={styles.description}>{props.currentGroup?.title}</p>
 
-        <p className={styles.title}>description (how this group studies) : </p>
+        <p className={styles.title}>how this group studies : </p>
         <p className={styles.description}>{props.currentGroup?.description}</p>
 
         <p className={styles.title}>meeting link : </p>

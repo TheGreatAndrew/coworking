@@ -56,6 +56,9 @@ heroku container:release web  --app whispering-gorge-69756
 
 change .env frontend
 change .env backend
+change back 
+
+heroku logs --tail -a whispering-gorge-69756
 
 
 ~~~~~ RUN

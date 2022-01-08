@@ -21,10 +21,35 @@ import styles from "./styles.module.scss";
 
 type Props = {};
 
-const EnterEmail: React.FC<Props> = (props) => {
-  const emailSubmit = async (email: string) => {
-    // just like login with a twist 
 
+const EnterEmail: React.FC<Props> = (props) => {
+  const sendPasswordResetEmail = async (email: string) => {
+  //   const { token } = userData;
+  
+  //   const config = {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   }
+  
+  //   const bodyParameters = {
+  //     uid : userData.id
+  //   }
+  
+  //   // axios
+  //   let response;
+  //   try {
+  //     response = await axios.post(
+  //       `${
+  //         process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
+  //         process.env.REACT_APP_SERVER_URL
+  //       }/groups/invite/${gid}`,
+  //       bodyParameters,
+  //       config
+  //     );
+  //   } catch (error) {
+  //     console.log("[ERROR][GROUPS][JOIN]: ", error);
+  //     return;
+  //   }
+  //   if (!response) return;
   };
 
   const formik = useFormik({
@@ -34,7 +59,7 @@ const EnterEmail: React.FC<Props> = (props) => {
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email address").required("Required"),
     }),
-    onSubmit: (values) => emailSubmit(values.email),
+    onSubmit: (values) => sendPasswordResetEmail(values.email),
   });
 
   return (
