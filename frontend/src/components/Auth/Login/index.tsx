@@ -110,7 +110,7 @@ const Login: React.FC<Props> = props => {
       <Link to="/signup">
         <p className={styles.guest}>Don't have an account? Sign Up</p>
       </Link>
-      <Link to="/resetpassword">
+      <Link to="/forgotpassword">
         <p className={styles.guest}>Forgot password?</p>
       </Link>
       

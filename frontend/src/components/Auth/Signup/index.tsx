@@ -123,6 +123,9 @@ const Signup: React.FC<Props> = props => {
       <Link to="/login">
         <p className={styles.guest}>Already a member ? Login</p>
       </Link>
+      <Link to="/forgotpassword">
+        <p className={styles.guest}>Forgot password?</p>
+      </Link>
       {isLoading && <CircularProgress />}
       <Snackbar open={snack.open} onClose={() => setSnack({ open: false, message: null })} autoHideDuration={5000}>
         <MuiAlert variant="filled" onClose={() => setSnack({ open: false, message: null })} severity="error">

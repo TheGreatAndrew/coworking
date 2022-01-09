@@ -9,7 +9,8 @@ import Cookie from '../../components/Shared/Cookie/index';
 import Welcome from '../../components/Auth/Welcome/index';
 import Login from '../../components/Auth/Login/index';
 import Signup from '../../components/Auth/Signup/index';
-import EnterEmail from '../../components/Auth/EnterEmail/index';
+import ForgotPassword from '../../components/Auth/ForgotPassword/index';
+import ResetPassword from '../../components/Auth/ResetPassword/index';
 
 
 // Landing Imports
@@ -18,7 +19,6 @@ import Home from '../../landingsrc/views/Home';
 import LayoutDefault from '../../landingsrc/layouts/LayoutDefault';
 
 import '../../landingsrc/assets/scss/style.scss';
-import EnterPassword from '../../components/Auth/EnterPassword';
 
 
 const darkTheme = createMuiTheme({
@@ -80,8 +80,8 @@ const AuthView: React.FC<Props> = props => {
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
-          <Route path="/resetpassword" exact component={EnterEmail} />
-          <Route path="/enterpassword" exact component={EnterPassword} />
+          <Route path="/forgotpassword" exact component={ForgotPassword} />
+          <Route path="/resetpassword" exact component={ResetPassword} />
           
 
           <AppRoute path="/landing" component={Home} layout={LayoutDefault}/>
