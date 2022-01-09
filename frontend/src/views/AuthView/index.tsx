@@ -18,6 +18,7 @@ import Home from '../../landingsrc/views/Home';
 import LayoutDefault from '../../landingsrc/layouts/LayoutDefault';
 
 import '../../landingsrc/assets/scss/style.scss';
+import EnterPassword from '../../components/Auth/EnterPassword';
 
 
 const darkTheme = createMuiTheme({
@@ -80,6 +81,8 @@ const AuthView: React.FC<Props> = props => {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
           <Route path="/resetpassword" exact component={EnterEmail} />
+          <Route path="/enterpassword" exact component={EnterPassword} />
+          
 
           <AppRoute path="/landing" component={Home} layout={LayoutDefault}/>
 

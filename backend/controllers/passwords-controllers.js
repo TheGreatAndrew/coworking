@@ -39,7 +39,7 @@ const sendPasswordResetEmail = async (req, res, next) => {
         }).save();
     }
     
-    const link = `${process.env.REACT_APP_MY_HEROKU_BACKEND_URL}/passwords/${user._id}/${token.token}`;
+    const link = `${process.env.REACT_APP_CLIENT_URL}/enterpassword/?uid=${user._id}&token=${token.token}`;
     await sendEmail(user.email, "Password reset", link);
 
     res.send("password reset link sent to your email account");
