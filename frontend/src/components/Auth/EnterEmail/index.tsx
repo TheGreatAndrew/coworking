@@ -3,16 +3,12 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import {
   TextField,
-  FormControlLabel,
-  Checkbox,
-  Snackbar,
-  CircularProgress,
 } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useHistory } from "react-router-dom";
 
 // Local Imports
 import logo from "../../../assets/gc-logo-symbol-nobg.png";
@@ -21,35 +17,44 @@ import styles from "./styles.module.scss";
 
 type Props = {};
 
+type SnackData = {
+  open: boolean;
+  message: string | null;
+  severity: "success" | "error" | undefined;
+};
 
 const EnterEmail: React.FC<Props> = (props) => {
+  const [snack, setSnack] = useState<SnackData>({
+    open: false,
+    severity: undefined,
+    message: null,
+  });
+
+  
   const sendPasswordResetEmail = async (email: string) => {
-  //   const { token } = userData;
   
-  //   const config = {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   }
-  
-  //   const bodyParameters = {
-  //     uid : userData.id
-  //   }
-  
-  //   // axios
-  //   let response;
-  //   try {
-  //     response = await axios.post(
-  //       `${
-  //         process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
-  //         process.env.REACT_APP_SERVER_URL
-  //       }/groups/invite/${gid}`,
-  //       bodyParameters,
-  //       config
-  //     );
-  //   } catch (error) {
-  //     console.log("[ERROR][GROUPS][JOIN]: ", error);
-  //     return;
-  //   }
-  //   if (!response) return;
+    const bodyParameters = {
+      email : email
+    }
+
+    // axios
+    let response;
+    try {
+      response = await axios.post(
+        `${
+          process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
+          process.env.REACT_APP_SERVER_URL
+        }/passwords`,
+        bodyParameters,
+      );
+    } catch (error) {
+      console.log("[ERROR][PASSWORD]: ", error);
+      return;
+    }
+    if (!response) return;
+
+    setSnack({ open: true, severity: "success", message: `email successfully sent to ${email}` });
+
   };
 
   const formik = useFormik({
@@ -80,6 +85,23 @@ const EnterEmail: React.FC<Props> = (props) => {
         />
         <CustomButton type="submit" onClick={formik.handleSubmit} isPurple title="Reset" small={false} />
 
+        <Snackbar
+        open={snack.open}
+        onClose={() =>
+          setSnack({ open: false, severity: snack.severity, message: null })
+        }
+        autoHideDuration={5000}
+      >
+        <MuiAlert
+          variant="filled"
+          onClose={() =>
+            setSnack({ open: false, severity: snack.severity, message: null })
+          }
+          severity={snack.severity}
+        >
+          {snack.message}
+        </MuiAlert>
+      </Snackbar>
       </form>
     </div>
   );
