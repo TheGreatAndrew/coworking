@@ -18,7 +18,6 @@ import AppRoute from '../../landingsrc/utils/AppRoute';
 import Home from '../../landingsrc/views/Home';
 import LayoutDefault from '../../landingsrc/layouts/LayoutDefault';
 
-import '../../landingsrc/assets/scss/style.scss';
 
 
 const darkTheme = createMuiTheme({

@@ -729,6 +729,9 @@ const AppView: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.leftside}>
+        aaa
+      </div>
       <div className={mobile ? styles.mobile : styles.side}>
         <SideTopBar
           inChannel={inChannel}

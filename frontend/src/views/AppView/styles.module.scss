@@ -10,13 +10,19 @@
   display: flex;
 
   .main {
-    flex: 3;
+    flex: 15;
     background-color: #252329;
     @include columnLayout;
   }
 
   .side,
   .mobile {
+    flex: 5;
+    background-color: #19161b;
+    @include columnLayout;
+  }
+
+  .leftside {
     flex: 1;
     background-color: #19161b;
     @include columnLayout;

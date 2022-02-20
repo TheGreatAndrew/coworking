@@ -1,11 +1,8 @@
 ~~~~~ NOTE
-
 SETUP 
 git clone https://github.com/KillianFrappartDev/GroupChat.git
 cd GroupChat/frontend && npm install
 cd GroupChat/backend && npm install
-cd frontend && npm start
-cd backend && npm start
 
 USEFUL COMMANDS
 TO KILL PORT 5000 
@@ -22,7 +19,6 @@ mongodb for orphaned -> https://stackoverflow.com/questions/34464861/pre-and-pos
 
 
 ~~~~~ HTTPS
-
 
 POST http://localhost:5000/api/users/login
 {
@@ -60,9 +56,7 @@ change back
 
 heroku logs --tail -a whispering-gorge-69756
 
-
-~~~~~ RUN
-
+~~~~~ DOCKER RUN
 DOCKER TO RUN ROOT DIRECTORY
 docker-compose up
 
@@ -73,3 +67,6 @@ HEROKU USEFUL COMMANDS
 heroku logs --tail --app online-coworking
 heroku ps:scale web=2 --app online-coworking
 
+~~~~~ RUN
+cd frontend && npm start
+cd backend && npm start 

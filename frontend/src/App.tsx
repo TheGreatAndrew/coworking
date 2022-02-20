@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // Local Imports
+import ProductivityView from './views/ProductivityView/index';
 import AppView from './views/AppView/index';
 import AuthView from './views/AuthView/index';
 
@@ -15,11 +16,10 @@ interface IRootState {
   };
 }
 
-
 const App: React.FC = () => {
   const isAuth = useSelector((state: IRootState) => state.auth.isLogged);
 
-  return isAuth ? <AppView /> : <AuthView />;
+  return isAuth ? <ProductivityView /> : <AuthView />;
 
 };
 
