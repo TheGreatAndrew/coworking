@@ -1,11 +1,9 @@
 import React from "react";
 import Modal from "react-modal";
-import styles from "./index.css";
-
 
 Modal.setAppElement("#root");
 
-const Window = ({ show, onClose, item }) => {
+const AgileModal = ({ show, onClose, item }) => {
 
     return (
         <Modal
@@ -29,4 +27,4 @@ const Window = ({ show, onClose, item }) => {
     );
 };
 
-export default Window;
+export default AgileModal;

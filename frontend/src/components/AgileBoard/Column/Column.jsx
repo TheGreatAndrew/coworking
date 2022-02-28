@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./index.css";
 
-const Col = ({ isOver, children }) => {
+const Column = ({ isOver, children }) => {
     const className = isOver ? " highlight-region" : "";
 
     return (
@@ -11,4 +11,4 @@ const Col = ({ isOver, children }) => {
     );
 };
 
-export default Col;
+export default Column;

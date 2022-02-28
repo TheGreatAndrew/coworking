@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Item from "../../components/AgileBoard/Item";
-import DropWrapper from "../../components/AgileBoard/DropWrapper";
-import Col from "../../components/AgileBoard/Col";
+import Item from "../../components/AgileBoard/Item/Item";
+import DropBoard from "../../components/AgileBoard/DropBoard/DropBoard";
+import Column from "../../components/AgileBoard/Column/Column";
 import { data, statuses } from "../../components/AgileBoard/data";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -37,8 +37,8 @@ const ProductivityView = () => {
             {/* eslint-disable-next-line no-restricted-globals */}
             <div key={status} className={"col-wrapper"}>
               <h2 className={"col-header"}>{s.status.toUpperCase()}</h2>
-              <DropWrapper onDrop={onDrop} status={s.status}>
-                <Col>
+              <DropBoard onDrop={onDrop} status={s.status}>
+                <Column>
                   {items
                     .filter((i) => i.status === s.status)
                     .map((i, idx) => (
@@ -50,8 +50,8 @@ const ProductivityView = () => {
                         status={s}
                       />
                     ))}
-                </Col>
-              </DropWrapper>
+                </Column>
+              </DropBoard>
             </div>
           </DndProvider>
         );
