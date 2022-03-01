@@ -4,7 +4,8 @@ import axios from "axios";
 import socketIOClient from "socket.io-client";
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import HomeIcon from "@material-ui/icons/Home";
+import IconButton from "@material-ui/core/IconButton";
 
 // Local Imports
 import Onboard from "../../components/Main/Onboard/index";
@@ -30,7 +31,7 @@ type GroupData = {
   title: string;
   description: string;
   owner: string;
-  isPrivate: boolean,
+  isPrivate: boolean;
   openGroupClick: () => void;
   leaveGroupClick: () => void;
 };
@@ -60,6 +61,7 @@ interface IRootState {
     modal: null | "bug" | "edit" | "create" | "forrest";
     groupModal: null | "group";
     forrest: number;
+    viewMode : 'app' | 'productivity'
   };
 }
 
@@ -89,11 +91,10 @@ const AppView: React.FC = () => {
   const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const [isGroupDiscovery, setGroupDiscovery] = useState(false);
 
-
   axios.interceptors.request.use(function (config) {
     const { token } = userData;
 
-    config.headers.Authorization =  `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
 
     return config;
   });
@@ -135,8 +136,8 @@ const AppView: React.FC = () => {
     const { token } = userData;
 
     const bodyParameters = {
-      uid : userData.id
-    }
+      uid: userData.id,
+    };
 
     // axios
     let response;
@@ -146,7 +147,7 @@ const AppView: React.FC = () => {
           process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
           process.env.REACT_APP_SERVER_URL
         }/groups/invite/${gid}`,
-        bodyParameters,
+        bodyParameters
       );
     } catch (error) {
       console.log("[ERROR][GROUPS][JOIN]: ", error);
@@ -335,19 +336,24 @@ const AppView: React.FC = () => {
     });
   };
 
-  const editGroupRequest = async (title: string, description : string, image: string, isPrivate : boolean) => {
+  const editGroupRequest = async (
+    title: string,
+    description: string,
+    image: string,
+    isPrivate: boolean
+  ) => {
     const { token } = userData;
 
     const config = {
-      headers: { Authorization: `Bearer ${token}` }
-    }
+      headers: { Authorization: `Bearer ${token}` },
+    };
 
     const bodyParameters = {
       gid: currentGroup?._id,
       title,
       description,
-      isPrivate
-    }
+      isPrivate,
+    };
 
     let response;
     try {
@@ -370,13 +376,16 @@ const AppView: React.FC = () => {
     }
 
     if (!response) return;
-  
-    setSnack({ open: true, severity: "success", message: `Refresh to see changes` });
+
+    setSnack({
+      open: true,
+      severity: "success",
+      message: `Refresh to see changes`,
+    });
     dispatch({ type: "GROUP MODAL", payload: { groupModal: null } });
 
-
-    // TODO : refresh group with new title, description -> has to include title in GroupAction, has to fetch from useSelector 
-    // 
+    // TODO : refresh group with new title, description -> has to include title in GroupAction, has to fetch from useSelector
+    //
 
     // dispatch({
     //   type: "GROUP EDIT",
@@ -384,9 +393,11 @@ const AppView: React.FC = () => {
     //     currentGroup : currentGroup
     //   },
     // });
+  };
 
+  const changeViewMode = () => {
+    dispatch({ type: "MANAGE VIEW", payload: { viewMode: 'productivity' } });
   }
-
 
   const createMessage = async (text: string, date: string) => {
     if (!socket) return;
@@ -597,7 +608,6 @@ const AppView: React.FC = () => {
   let mainContent;
 
   if (inChannel) {
-
     sideContent = (
       <div className={styles.sideContent}>
         <GroupInfo
@@ -622,7 +632,6 @@ const AppView: React.FC = () => {
       <div className={styles.main}>
         <ChatTopBar
           title={currentGroup?.title}
-
           menuClick={() => setMobile(true)}
         />
         <Messages
@@ -644,7 +653,7 @@ const AppView: React.FC = () => {
         />
       </div>
     );
-    // group list mode 
+    // group list mode
     if (isGroupDiscovery) {
       mainContent = (
         <div className={styles.main}>
@@ -668,7 +677,7 @@ const AppView: React.FC = () => {
         </div>
       );
     } else {
-      // default mode 
+      // default mode
       mainContent = (
         <div className={styles.main}>
           <MainTopBar title="" menuClick={() => setMobile(true)} />
@@ -730,7 +739,9 @@ const AppView: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftside}>
-        aaa
+        <IconButton className={styles.homeButton} onClick={changeViewMode}>
+              <HomeIcon className={styles.home} />
+            </IconButton>
       </div>
       <div className={mobile ? styles.mobile : styles.side}>
         <SideTopBar

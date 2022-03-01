@@ -1,5 +1,3 @@
-// declare type. app reducer. 
-
 type AppState = {
   inChannel: boolean;
   allGroups: [];
@@ -11,6 +9,7 @@ type AppState = {
   modal: null | 'bug' | 'edit' | 'create' | 'forrest';
   groupModal : null | 'group';
   forrest : 0;
+  viewMode : 'app' | 'productivity';
 };
 
 type AppAction = {
@@ -25,6 +24,7 @@ type AppAction = {
     modal: null | 'bug' | 'edit' | 'create' | 'forrest';
     groupModal : null | 'group';
     forrest : 0;
+    viewMode : 'app' | 'productivity'
   };
 };
 
@@ -38,7 +38,8 @@ const initialState: AppState = {
   currentGroup: null,
   modal: null,
   groupModal: null,
-  forrest: 0
+  forrest: 0,
+  viewMode : 'productivity'
 };
 
 const reducer = (state = initialState, action: AppAction) => {
@@ -70,6 +71,10 @@ const reducer = (state = initialState, action: AppAction) => {
 
     case 'FETCH FORREST':
       return { ...state, forrest : action.payload.forrest}
+
+    case 'MANAGE VIEW':
+      console.log('inside redux ->' + action.payload.viewMode);
+      return { ...state, viewMode : action.payload.viewMode}; 
 
     case 'EXIT':
       return {

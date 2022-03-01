@@ -31,6 +31,7 @@ const ProductivityView = () => {
 
   return (
     <div className={"row"}>
+      <div>aaa</div>
       {statuses.map((s) => {
         return (
           <DndProvider backend={HTML5Backend}>

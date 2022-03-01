@@ -14,12 +14,16 @@ interface IRootState {
     image: string | null;
     token: string | null;
   };
+  app : {
+    viewMode : 'app' | 'productivity'
+  }
 }
 
 const App: React.FC = () => {
   const isAuth = useSelector((state: IRootState) => state.auth.isLogged);
+  const viewMode = useSelector((state: IRootState) => state.app.viewMode);
 
-  return isAuth ? <ProductivityView /> : <AuthView />;
+  return isAuth ? (viewMode == 'app' ? <AppView/> : <ProductivityView/>) : <AuthView />;
 
 };
 
