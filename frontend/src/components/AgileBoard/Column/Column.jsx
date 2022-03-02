@@ -1,10 +1,9 @@
 import React from "react";
 
 const Column = ({ isOver, children }) => {
-    const className = isOver ? " highlight-region" : "";
-
+    // const className = isOver ? " highlight-region" : "";
     return (
-        <div className={`col${className}`}>
+        <div className={`col`}>
             {children}
         </div>
     );

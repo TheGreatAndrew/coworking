@@ -4,7 +4,8 @@ import DropBoard from "../../components/AgileBoard/DropBoard/DropBoard";
 import Column from "../../components/AgileBoard/Column/Column";
 import { data, statuses } from "../../components/AgileBoard/data";
 import { DndProvider } from "react-dnd";
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { HTML5Backend } from "react-dnd-html5-backend";
+import styles from "./styles.module.scss";
 
 const ProductivityView = () => {
   const [items, setItems] = useState(data);
@@ -30,33 +31,37 @@ const ProductivityView = () => {
   };
 
   return (
-    <div className={"row"}>
-      <div>aaa</div>
-      {statuses.map((s) => {
-        return (
-          <DndProvider backend={HTML5Backend}>
-            {/* eslint-disable-next-line no-restricted-globals */}
-            <div key={status} className={"col-wrapper"}>
-              <h2 className={"col-header"}>{s.status.toUpperCase()}</h2>
-              <DropBoard onDrop={onDrop} status={s.status}>
-                <Column>
-                  {items
-                    .filter((i) => i.status === s.status)
-                    .map((i, idx) => (
-                      <Item
-                        key={i.id}
-                        item={i}
-                        index={idx}
-                        moveItem={moveItem}
-                        status={s}
-                      />
-                    ))}
-                </Column>
-              </DropBoard>
-            </div>
-          </DndProvider>
-        );
-      })}
+    <div className={styles.container}>
+      <div className={styles.leftside}>
+        <div>aaa</div>
+      </div>
+      <div className={styles.main}>
+        {statuses.map((s) => {
+          return (
+            <DndProvider backend={HTML5Backend}>
+              {/*   eslint-disable-next-line no-restricted-globals */}
+              <div key={status} className={"col-wrapper"}>
+                <h2 className={"col-header"}>{s.status.toUpperCase()}</h2>
+                <DropBoard onDrop={onDrop} status={s.status}>
+                  <Column>
+                    {items
+                      .filter((i) => i.status === s.status)
+                      .map((i, idx) => (
+                        <Item
+                          key={i.id}
+                          item={i}
+                          index={idx}
+                          moveItem={moveItem}
+                          status={s}
+                        />
+                      ))}
+                  </Column>
+                </DropBoard> 
+              </div>
+            </DndProvider>
+          );
+        })}
+      </div>
     </div>
   );
 };
