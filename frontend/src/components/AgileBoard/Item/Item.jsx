@@ -2,8 +2,6 @@ import React, { Fragment, useState, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import AgileModal from "../AgileModal/AgileModal";
 import ITEM_TYPE from "../data/types";
-// import "./index.css";
-
 
 const Item = ({ item, index, moveItem, status }) => {
     const ref = useRef(null);

@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import Item from "../../components/AgileBoard/Item/Item";
-import DropBoard from "../../components/AgileBoard/DropBoard/DropBoard";
-import Column from "../../components/AgileBoard/Column/Column";
+
 import { data, statuses } from "../../components/AgileBoard/data";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./styles.module.scss";
+import HomeIcon from "@material-ui/icons/Home";
+import IconButton from "@material-ui/core/IconButton";
+import { useDispatch } from "react-redux";
+
+// local
+import Item from "../../components/AgileBoard/Item/Item";
+import DropBoard from "../../components/AgileBoard/DropBoard/DropBoard";
+import Column from "../../components/AgileBoard/Column/Column";
+import TextForm from "../../components/AgileBoard/TextForm/TextForm";
+
 
 const ProductivityView = () => {
+  const dispatch = useDispatch();
   const [items, setItems] = useState(data);
 
   const onDrop = (item, monitor, status) => {
@@ -30,10 +39,16 @@ const ProductivityView = () => {
     });
   };
 
+  const changeViewMode = () => {
+    dispatch({ type: "MANAGE VIEW", payload: { viewMode: 'app' } });
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.leftside}>
-        <div>aaa</div>
+        <IconButton className={styles.homeButton} onClick={changeViewMode}>
+          <HomeIcon className={styles.home} />
+        </IconButton>
       </div>
       <div className={styles.main}>
         {statuses.map((s) => {
@@ -56,11 +71,12 @@ const ProductivityView = () => {
                         />
                       ))}
                   </Column>
-                </DropBoard> 
+                </DropBoard>
               </div>
             </DndProvider>
           );
         })}
+        <TextForm onSubmit={() => {}} placeholder="Add Column..." />
       </div>
     </div>
   );
