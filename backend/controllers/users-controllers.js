@@ -85,7 +85,7 @@ const signup = async (req, res, next) => {
   const hashedPassword = await bcrypt.hash(password, 8);
 
   // Create new user.
-  const newUser = new User({ email, password: hashedPassword, username, image: defaultImage, banned: false});
+  const newUser = new User({ email, password: hashedPassword, username, image: defaultImage, banned: false, forrest : 0});
   try {
     await newUser.save();
   } catch (error) {

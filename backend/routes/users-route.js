@@ -26,6 +26,6 @@ router.get('/groups/:uid', authToken, controllers.fetchJoinedGroups);
 
 // forrest
 router.put('/forrest', authToken, controllers.incrementForrest);
-router.get('/forrest/:uid', authToken, controllers.fetchForrest);
+router.get('/forrest/:uid', authToken, controllers.fetchForrest); 
 
 module.exports = router;

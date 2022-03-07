@@ -62,6 +62,12 @@ const Momentum: React.FC<Props> = props => {
   const incrementForrest = async (uid: string, time: Number) => {
     let response;
 
+    // first 10 minutes don't count
+    // if(time <= 10){
+    //   time = 0
+    // }
+
+    //
     try {
       response = await axios.put(
         `${

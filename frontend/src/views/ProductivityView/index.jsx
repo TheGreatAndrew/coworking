@@ -5,8 +5,8 @@ import Momentum from "../../components/Momentum/Momentum";
 const ProductivityView = () => {
   return (
     <div>
-      {/* <Board/> */}
-      <Momentum/>
+      <Board/>
+      {/* <Momentum/> */}
     </div>
   );
 };

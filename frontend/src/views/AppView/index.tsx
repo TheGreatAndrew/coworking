@@ -91,6 +91,8 @@ const AppView: React.FC = () => {
   const [socket, setSocket] = useState<SocketIOClient.Socket | null>(null);
   const [isGroupDiscovery, setGroupDiscovery] = useState(false);
 
+
+  // add token to request 
   axios.interceptors.request.use(function (config) {
     const { token } = userData;
 
