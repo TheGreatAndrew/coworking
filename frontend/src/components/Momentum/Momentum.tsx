@@ -3,10 +3,11 @@ import { TextField } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import axios from "axios";
 
 
 // Local Imports
-import CustomButton from '../CustomButton/index';
+import CustomButton from '../Shared/CustomButton/index'
 import styles from './styles.module.scss';
 
 const darkTheme = createMuiTheme({
@@ -16,7 +17,6 @@ const darkTheme = createMuiTheme({
 });
 
 type Props = {
-  incrementForrest: (uid: string, time: Number) => void;
 };
 
 interface IRootState {
@@ -44,7 +44,7 @@ function useInterval(callback : any, delay : any){
   }, [delay])
 } 
 
-const ForrestModal: React.FC<Props> = props => {
+const Momentum: React.FC<Props> = props => {
   const dispatch = useDispatch();
   const { id } = useSelector((state: IRootState) => state.auth);
 
@@ -58,6 +58,26 @@ const ForrestModal: React.FC<Props> = props => {
     setCount(count + 1);
   }, isRunning ? delay : null);
 
+  // save forrest
+  const incrementForrest = async (uid: string, time: Number) => {
+    let response;
+
+    try {
+      response = await axios.put(
+        `${
+          process.env.REACT_APP_MY_HEROKU_BACKEND_URL ||
+          process.env.REACT_APP_SERVER_URL
+        }/users/forrest`,
+        {
+          id: uid,
+          forrest: time,
+        }
+      );
+    } catch (error) {
+      console.log("[ERROR][FORREST]: ", error);
+      return;
+    }
+  };
 
   const displayTime = () => {
   // setCount(stopTime && startTime ? stopTime.valueOf() - startTime.valueOf() : 0);
@@ -81,15 +101,13 @@ const ForrestModal: React.FC<Props> = props => {
     setStopTime(new Date());
 
     // axios forrest save
-    props.incrementForrest(id, Math.floor(count/60));
+    incrementForrest(id, Math.floor(count/60));
 
     setCount(0);
   }
   
   return (
-    <>
-      <div className={styles.backdrop} onClick={() => dispatch({ type: 'MODAL', payload: { modal: null } })}></div>
-      <div className={styles.modal}>
+      <div>
         <h2>Focus</h2>
 
         <ThemeProvider theme={darkTheme}>
@@ -105,10 +123,9 @@ const ForrestModal: React.FC<Props> = props => {
           </form>
         </ThemeProvider>
       </div>
-    </>
   );
 
 
 };
 
-export default ForrestModal;
+export default Momentum;

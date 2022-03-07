@@ -1,12 +1,12 @@
 // local
 import Board from "../../components/AgileBoard/Board/Board";
-import Momemtum from "../../components/Momentum/Momemtum";
+import Momentum from "../../components/Momentum/Momentum";
 
 const ProductivityView = () => {
   return (
     <div>
-      <Board/>
-      <Momemtum/>
+      {/* <Board/> */}
+      <Momentum/>
     </div>
   );
 };

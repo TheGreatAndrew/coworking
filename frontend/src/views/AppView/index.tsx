@@ -715,7 +715,7 @@ const AppView: React.FC = () => {
     return response.data.forrest;
   };
 
-  // save forrest
+  // probably old version
   const incrementForrest = async (uid: string, time: Number) => {
     let response;
 
@@ -783,7 +783,7 @@ const AppView: React.FC = () => {
       )}
       {modal === "bug" && <Modal onCreate={reportBug} title="Bug Report" />}
       {modal === "forrest" && (
-        <ForrestModal incrementForrest={incrementForrest} title="Focus" />
+        <ForrestModal incrementForrest={incrementForrest}/>
       )}
       <Snackbar
         open={snack.open}
