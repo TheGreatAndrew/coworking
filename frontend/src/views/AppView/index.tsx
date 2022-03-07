@@ -61,7 +61,7 @@ interface IRootState {
     modal: null | "bug" | "edit" | "create" | "forrest";
     groupModal: null | "group";
     forrest: number;
-    viewMode : 'app' | 'productivity'
+    viewMode : 'app' | 'board' | 'momentum'
   };
 }
 
@@ -398,7 +398,7 @@ const AppView: React.FC = () => {
   };
 
   const changeViewMode = () => {
-    dispatch({ type: "MANAGE VIEW", payload: { viewMode: 'productivity' } });
+    dispatch({ type: "MANAGE VIEW", payload: { viewMode: 'board' } });
   }
 
   const createMessage = async (text: string, date: string) => {

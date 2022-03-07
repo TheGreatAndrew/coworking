@@ -9,7 +9,7 @@ type AppState = {
   modal: null | 'bug' | 'edit' | 'create' | 'forrest';
   groupModal : null | 'group';
   forrest : 0;
-  viewMode : 'app' | 'productivity';
+  viewMode : 'app' | 'board' | 'momentum';
 };
 
 type AppAction = {
@@ -24,7 +24,7 @@ type AppAction = {
     modal: null | 'bug' | 'edit' | 'create' | 'forrest';
     groupModal : null | 'group';
     forrest : 0;
-    viewMode : 'app' | 'productivity'
+    viewMode : 'app' | 'board' | 'momentum'
   };
 };
 
@@ -39,7 +39,7 @@ const initialState: AppState = {
   modal: null,
   groupModal: null,
   forrest: 0,
-  viewMode : 'productivity'
+  viewMode : 'board'
 };
 
 const reducer = (state = initialState, action: AppAction) => {

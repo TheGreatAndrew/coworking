@@ -15,7 +15,7 @@ interface IRootState {
     token: string | null;
   };
   app : {
-    viewMode : 'app' | 'productivity'
+    viewMode : 'app' | 'board' | 'momentum'
   }
 }
 
