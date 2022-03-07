@@ -44,14 +44,14 @@ const BottomBar: React.FC<Props> = (props) => {
           <p className={styles.username}>{username}</p>
         </div>
         <div className={styles.buttonContainer}>
-          {/* <Tooltip title="Track Focus" placement="top">
+          <Tooltip title="Track Focus" placement="top">
             <IconButton
               className={styles.exitButton}
               onClick={props.forrestClick}
             >
               <TimerIcon className={styles.exit} />
             </IconButton>
-          </Tooltip> */}
+          </Tooltip>
           <Tooltip title="Report a bug" placement="top">
             <IconButton className={styles.exitButton} onClick={props.bugClick}>
               <BugReportIcon className={styles.exit} />

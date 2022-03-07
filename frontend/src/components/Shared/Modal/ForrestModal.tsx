@@ -86,11 +86,7 @@ const ForrestModal: React.FC<Props> = props => {
 
     setCount(0);
   }
-
-  const hello = () =>{
-    return 'hello world';
-  }
-
+  
   return (
     <>
       <div className={styles.backdrop} onClick={() => dispatch({ type: 'MODAL', payload: { modal: null } })}></div>
