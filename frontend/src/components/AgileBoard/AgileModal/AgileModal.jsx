@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
+import styles from './styles.module.scss'
 
 Modal.setAppElement("#root");
 
@@ -11,12 +12,12 @@ const AgileModal = ({ show, onClose, item }) => {
             appElement={document.getElementById('app')}
             isOpen={show}
             onRequestClose={onClose}
-            className={"modal"}
-            overlayClassName={"overlay"}
+            className={styles.modal}
+            overlayClassName={styles.overlay}
         >
-            <div className={"close-btn-ctn"}>
+            <div className={styles.closeButtonCtn}>
                 <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
-                <button className="close-btn" onClick={onClose}>X</button>
+                <button className={styles.closeButton} onClick={onClose}>X</button>
             </div>
             <div>
                 <h2>Description</h2>

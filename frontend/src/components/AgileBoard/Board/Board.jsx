@@ -2,9 +2,6 @@ import React, { useState } from "react";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import styles from "./styles.module.scss";
-import HomeIcon from "@material-ui/icons/Home";
-import IconButton from "@material-ui/core/IconButton";
 import { useDispatch } from "react-redux";
 
 // local
@@ -13,6 +10,8 @@ import Item from "../Item/Item";
 import DropBoard from "../DropBoard/DropBoard";
 import Column from "../Column/Column";
 import TextForm from "../TextForm/TextForm";
+
+import styles from './styles.module.scss'
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -38,18 +37,14 @@ const Board = () => {
     });
   };
 
-  const changeViewMode = () => {
-    dispatch({ type: "MANAGE VIEW", payload: { viewMode: "app" } });
-  };
-
   return (
     <div className={styles.container}>
       {statuses.map((s) => {
         return (
           <DndProvider backend={HTML5Backend}>
             {/*   eslint-disable-next-line no-restricted-globals */}
-            <div key={status} className={"col-wrapper"}>
-              <h2 className={"col-header"}>{s.status.toUpperCase()}</h2>
+            <div key={status} className={styles.colWrapper}>
+              <h2 className={styles.colHeader}>{s.status.toUpperCase()}</h2>
               <DropBoard onDrop={onDrop} status={s.status}>
                 <Column>
                   {items
@@ -69,7 +64,7 @@ const Board = () => {
           </DndProvider>
         );
       })}
-      <TextForm onSubmit={() => {}} placeholder="Add Column..." />
+      {/* <TextForm onSubmit={() => {}} placeholder="Add Column..." /> */}
     </div>
   );
 };

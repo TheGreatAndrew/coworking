@@ -1,0 +1,27 @@
+.item {
+  font-size: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1;
+  background-color: white;
+}
+
+.item:hover {
+  cursor: pointer;
+}
+
+.itemTitle {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.itemStatus {
+  text-align: right;
+}
+
+.colorBar {
+  width: 40px;
+  height: 10px;
+  border-radius: 5px;
+}

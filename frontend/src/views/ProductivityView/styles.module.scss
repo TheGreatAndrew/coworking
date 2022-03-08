@@ -11,7 +11,6 @@
 
   .main {
     flex: 19;
-    // background-color: #6516f7;
     background-color: #252329;
     @include columnLayout;
   }
@@ -24,16 +23,16 @@
   }
 }
 
-.homeButton {
-  @media screen and (max-width: 350px) {
-    padding: 5px;
-  }
-}
+// .homeButton {
+//   @media screen and (max-width: 350px) {
+//     padding: 5px;
+//   }
+// }
 
-.home {
-  color: #e0e0e0;
-  &:hover {
-    color: rgb(129, 3, 255);
-    color: linear-gradient(90deg, rgba(129, 3, 255, 1) 0%, rgba(195, 17, 255, 1) 100%);
-  }
-}
+// .home {
+//   color: #e0e0e0;
+//   &:hover {
+//     color: rgb(129, 3, 255);
+//     color: linear-gradient(90deg, rgba(129, 3, 255, 1) 0%, rgba(195, 17, 255, 1) 100%);
+//   }
+// }

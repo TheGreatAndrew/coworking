@@ -1,7 +1,7 @@
 import React from "react";
 import { useDrop } from "react-dnd";
 import ITEM_TYPE from "../data/types";
-import "./index.css";
+import styles from "./index.css";
 
 const DropBoard = ({ onDrop, children, status }) => {
     const [{ isOver }, drop] = useDrop({
@@ -19,7 +19,7 @@ const DropBoard = ({ onDrop, children, status }) => {
     });
 
     return (
-        <div ref={drop} className={"drop-wrapper"}>
+        <div ref={drop} className={styles.dropWrapper}>
             {React.cloneElement(children, { isOver })}
         </div>
     )

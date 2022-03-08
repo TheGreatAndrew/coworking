@@ -120,12 +120,14 @@ const Momentum: React.FC<Props> = props => {
           <form className={styles.form} onSubmit={e => e.preventDefault()}>
             
             <h1>{displayTime()}</h1>
-            If you stop within 10 minutes, the time log won't record this session
             
             <div>
               <CustomButton onClick={() => handleStart()} isPurple title="Start" small />
               <CustomButton onClick={() => handleGiveUp()} isPurple title="Give Up" small />
             </div>
+            [1] If you stop within 10 minutes, the time log won't record this session
+            [2] The stop watch only works if it over 10 minutes
+            It’s hard to start something, every hour you will have 1 credit, this credit can be used get an extra 10 minutes
           </form>
         </ThemeProvider>
       </div>

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import "./index.css";
+import {Component} from 'react';
+import styles from "./styles.module.scss";
 
 export default class TextForm extends Component {
   onSubmit = event => {
@@ -11,11 +11,11 @@ export default class TextForm extends Component {
 
   render() {
     return (
-      <div className="TextForm">
+      <div className={styles.TextForm}>
         <form onSubmit={this.onSubmit} ref={node => (this.form = node)}>
         <input
           type="text"
-          className="TextForm__input"
+          className={styles.TextFormInput}
           name="input"
           placeholder={this.props.placeholder}
         />

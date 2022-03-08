@@ -3,6 +3,8 @@ import { useDrag, useDrop } from "react-dnd";
 import AgileModal from "../AgileModal/AgileModal";
 import ITEM_TYPE from "../data/types";
 
+import styles from './styles.module.scss'
+
 const Item = ({ item, index, moveItem, status }) => {
     const ref = useRef(null);
 
@@ -13,8 +15,8 @@ const Item = ({ item, index, moveItem, status }) => {
             if (!ref.current) {
                 return
             }
-            const dragIndex = item.index;
-            const hoverIndex = index;
+            const dragIndex = item.index; // the main 
+            const hoverIndex = index; // the main one is hovering this
 
             if (dragIndex === hoverIndex) {
                 return
@@ -58,12 +60,12 @@ const Item = ({ item, index, moveItem, status }) => {
             <div
                 ref={ref}
                 style={{ opacity: isDragging ? 0 : 1 }}
-                className={"item"}
+                className={styles.item}
                 onClick={onOpen}
             >
-                <div className={"color-bar"} style={{ backgroundColor: status.color }}/>
-                <p className={"item-title"}>{item.content}</p>
-                <p className={"item-status"}>{item.icon}</p>
+                <div className={styles.colorBar} style={{ backgroundColor: status.color }}/>
+                <p className={styles.itemTitle}>{item.content}</p>
+                <p className={styles.itemStatus}>{item.icon}</p>
             </div>
             <AgileModal
                 item={item}
