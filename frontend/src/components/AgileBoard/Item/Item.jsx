@@ -15,8 +15,8 @@ const Item = ({ item, index, moveItem, status }) => {
             if (!ref.current) {
                 return
             }
-            const dragIndex = item.index; // the main 
-            const hoverIndex = index; // the main one is hovering this
+            const dragIndex = item.index; // the item 
+            const hoverIndex = index; // the item is hovering this item
 
             if (dragIndex === hoverIndex) {
                 return
@@ -65,7 +65,7 @@ const Item = ({ item, index, moveItem, status }) => {
             >
                 <div className={styles.colorBar} style={{ backgroundColor: status.color }}/>
                 <p className={styles.itemTitle}>{item.content}</p>
-                <p className={styles.itemStatus}>{item.icon}</p>
+                <p className={styles.itemStatus}>{status.icon}</p>
             </div>
             <AgileModal
                 item={item}
