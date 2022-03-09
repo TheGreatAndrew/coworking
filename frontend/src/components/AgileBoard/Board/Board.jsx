@@ -55,6 +55,15 @@ const Board = () => {
     });
   };
 
+  const deleteItem = (item) => {
+    setItems((prevState) => {
+      const newItems = prevState
+        .filter((i) => i.id !== item.id)
+
+      return [...newItems];
+    });
+  };
+
 
   return (
     <div className={styles.container}>
@@ -77,7 +86,7 @@ const Board = () => {
                         status={s}
                       />
                     ))}
-                  <TextForm onSubmit={addItem} status={s.status}/>
+                  {/* <TextForm onSubmit={addItem} status={s.status}/> */}
                 </Column>
               </DropBoard>
             </div>

@@ -19,22 +19,22 @@ const data = [{
     title: "Daily reading",
     content: "d"
 },
-{
-    id: 5,
-    status: "open",
-    title: "Daily reading",
-    content: "1"
-},{
-    id: 6,
-    status: "open",
-    title: "Daily reading",
-    content: "2"
-},{
-    id: 7,
-    status: "open",
-    title: "Daily reading",
-    content: "3"
-},
+// {
+//     id: 5,
+//     status: "open",
+//     title: "Daily reading",
+//     content: "1"
+// },{
+//     id: 6,
+//     status: "open",
+//     title: "Daily reading",
+//     content: "2"
+// },{
+//     id: 7,
+//     status: "open",
+//     title: "Daily reading",
+//     content: "3"
+// },
 
 ];
 

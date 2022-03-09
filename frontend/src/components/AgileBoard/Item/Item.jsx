@@ -15,17 +15,17 @@ const Item = ({ item, index, moveItem, status }) => {
             if (!ref.current) {
                 return
             }
-            const dragIndex = item.index; // the item 
-            const hoverIndex = index; // the item is hovering this item
+            const dragIndex = item.index; // clicked item 
+            const hoverIndex = index; // clicked item is hovering this item
 
             if (dragIndex === hoverIndex) {
                 return
             }
 
-            const hoveredRect = ref.current.getBoundingClientRect();
-            const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
-            const mousePosition = monitor.getClientOffset();
-            const hoverClientY = mousePosition.y - hoveredRect.top;
+            const hoveredRect = ref.current.getBoundingClientRect(); // the item's rectangle
+            const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2; // middle line of item
+            const mousePosition = monitor.getClientOffset(); // mouse position 
+            const hoverClientY = mousePosition.y - hoveredRect.top; //
 
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
