@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd";
 import ITEM_TYPE from "../data/types";
 import styles from "./index.css";
 
-const DropBoard = ({ onDrop, children, status }) => {
+const DropBoard = ({ onDrop, children, statusId }) => {
     const [{ isOver }, drop] = useDrop({
         accept: ITEM_TYPE,
         type: ITEM_TYPE,
@@ -11,7 +11,7 @@ const DropBoard = ({ onDrop, children, status }) => {
             return true;
         },
         drop: (item, monitor) => {
-            onDrop(item, monitor, status);
+            onDrop(item, monitor, statusId);
         },
         collect: monitor => ({
             isOver: monitor.isOver()

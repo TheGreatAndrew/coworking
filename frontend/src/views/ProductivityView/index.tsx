@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 
 // local
+import App from "../../components/AgileBoard/App/App";
 import Board from "../../components/AgileBoard/Board/Board";
 import Momentum from "../../components/Momentum/Momentum";
 import styles from "./styles.module.scss";
@@ -37,7 +38,7 @@ const ProductivityView = () => {
   const renderProductivityTools = () => {
     switch(viewMode){
       case 'board' :
-        return <Board/>;
+        return <App/>;
       case 'momentum' : 
         return <Momentum/>;
     }

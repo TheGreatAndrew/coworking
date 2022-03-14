@@ -20,3 +20,7 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+
+// TODO 
+// https://github.com/react-dnd/react-dnd/issues/361 so can't delete

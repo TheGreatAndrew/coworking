@@ -5,43 +5,25 @@ import ITEM_TYPE from "../data/types";
 
 import styles from './styles.module.scss'
 
-const Item = ({ item, index, moveItem, status }) => {
+const Item = ({ item, itemId, moveItem, status, statusId, statusIndex }) => {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
         accept: ITEM_TYPE,
         type: ITEM_TYPE,
         hover(item, monitor) {
-            if (!ref.current) {
-                return
-            }
-            const dragIndex = item.index; // clicked item 
-            const hoverIndex = index; // clicked item is hovering this item
+            console.log("Item.jsx status id " + statusId)
 
-            if (dragIndex === hoverIndex) {
-                return
+            const draggingItem = monitor.getItem()
+            if(draggingItem.id != itemId){
+                moveItem(draggingItem.id, statusId, statusIndex)
             }
-
-            const hoveredRect = ref.current.getBoundingClientRect(); // the item's rectangle
-            const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2; // middle line of item
-            const mousePosition = monitor.getClientOffset(); // mouse position 
-            const hoverClientY = mousePosition.y - hoveredRect.top; //
-
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
-            }
-
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-                return;
-            }
-            moveItem(dragIndex, hoverIndex);
-            item.index = hoverIndex;
         },
     });
 
     const [{ isDragging }, drag] = useDrag({
         type : ITEM_TYPE,
-        item: { type: ITEM_TYPE, ...item, index },
+        item: { type: ITEM_TYPE, ...item, itemId },
         collect: monitor => ({
             isDragging: monitor.isDragging()
         })
