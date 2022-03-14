@@ -35,6 +35,7 @@ const Board = (props) => {
                           statusIndex={index}
 
                           moveItem={props.moveItem}
+                          deleteItem={props.deleteItem}
                         />
                       );
                     })}

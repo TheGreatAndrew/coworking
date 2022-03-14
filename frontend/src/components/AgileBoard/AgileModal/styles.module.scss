@@ -19,8 +19,10 @@
   background-color: rgba(0,0,0,0.5);;
 }
 
-.closeButtonCtn {
+.options {
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .closeButton {

@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import _, { filter } from "lodash";
+import _ from "lodash";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-
 //local
 import Board from "../Board/Board";
-
 
 const data = [
   {
@@ -34,28 +32,28 @@ const data = [
 
 const dataStatuses = [
   {
-    statusId : 1,
+    statusId: 1,
     status: "open",
     icon: "⭕️",
     color: "#EB5A46",
     itemIds: [],
   },
   {
-    statusId : 2, 
+    statusId: 2,
     status: "in progress",
     icon: "🔆️",
     color: "#00C2E0",
     itemIds: [1, 2, 3, 4],
   },
   {
-    statusId : 3, 
+    statusId: 3,
     status: "in review",
     icon: "📝",
     color: "#C377E0",
     itemIds: [],
   },
   {
-    statusId : 4,
+    statusId: 4,
     status: "done",
     icon: "✅",
     color: "#3981DE",
@@ -70,25 +68,28 @@ const App = () => {
 
   // onDrop is for inter-column
   const onDrop = (item, monitor, destStatusId) => {
-      moveItem(item.id, destStatusId, 0 )
+    moveItem(item.id, destStatusId, 0);
   };
 
   const moveItem = (itemId, destStatusId, statusIndex) => {
     setStatuses((prevStatuses) => {
-      const newStatuses = prevStatuses.map(s => {
-        const filteredIds = s.itemIds.filter(id => id !== itemId);
+      const newStatuses = prevStatuses.map((s) => {
+        const filteredIds = s.itemIds.filter((id) => id !== itemId);
 
-        let newIds; 
-        s.statusId=== destStatusId
-        ? newIds = [...filteredIds.slice(0, statusIndex), itemId, ...filteredIds.slice(statusIndex)]
-        : newIds = filteredIds; 
-        
-        return { ...s, itemIds : newIds}
-      })
+        let newIds;
+        s.statusId === destStatusId
+          ? (newIds = [
+              ...filteredIds.slice(0, statusIndex),
+              itemId,
+              ...filteredIds.slice(statusIndex),
+            ])
+          : (newIds = filteredIds);
+
+        return { ...s, itemIds: newIds };
+      });
 
       return newStatuses;
-    })
-
+    });
   };
 
   const addItem = (newTitle, newStatus) => {
@@ -105,11 +106,19 @@ const App = () => {
     });
   };
 
-  const deleteItem = (item) => {
-    setItems((prevState) => {
-      const newItems = prevState.filter((i) => i.id !== item.id);
+  const deleteItem = (itemId) => {
+    setStatuses((prevStatuses) => {
+      const newStatuses = prevStatuses.map((s) => {
+        const newIds = s.itemIds.filter((id) => id !== itemId);
 
-      return [...newItems];
+        return { ...s, itemIds: newIds };
+      });
+      return newStatuses;
+    });
+
+    setItems((prevItems) => {
+      const newItems = prevItems.filter((item) => item.id !== itemId);
+      return newItems;
     });
   };
 

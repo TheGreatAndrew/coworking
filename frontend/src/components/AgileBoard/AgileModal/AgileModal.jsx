@@ -5,7 +5,11 @@ import styles from './styles.module.scss'
 
 Modal.setAppElement("#root");
 
-const AgileModal = ({ show, onClose, item }) => {
+const AgileModal = ({ show, onClose, item, deleteItem }) => {
+
+    const onDelete = () => {
+        deleteItem(item.id)
+    }
 
     return (
         <Modal
@@ -15,9 +19,11 @@ const AgileModal = ({ show, onClose, item }) => {
             className={styles.modal}
             overlayClassName={styles.overlay}
         >
-            <div className={styles.closeButtonCtn}>
+            <div className={styles.options}>
                 <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
+                <button className={styles.closeButton} onClick={onDelete}>DELETE</button>
                 <button className={styles.closeButton} onClick={onClose}>X</button>
+                
             </div>
             <div>
                 <h2>Description</h2>

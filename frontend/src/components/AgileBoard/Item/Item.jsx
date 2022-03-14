@@ -5,15 +5,13 @@ import ITEM_TYPE from "../data/types";
 
 import styles from './styles.module.scss'
 
-const Item = ({ item, itemId, moveItem, status, statusId, statusIndex }) => {
+const Item = ({ item, itemId, status, statusId, statusIndex, moveItem, deleteItem }) => {
     const ref = useRef(null);
 
     const [, drop] = useDrop({
         accept: ITEM_TYPE,
         type: ITEM_TYPE,
         hover(item, monitor) {
-            console.log("Item.jsx status id " + statusId)
-
             const draggingItem = monitor.getItem()
             if(draggingItem.id != itemId){
                 moveItem(draggingItem.id, statusId, statusIndex)
@@ -51,8 +49,10 @@ const Item = ({ item, itemId, moveItem, status, statusId, statusIndex }) => {
             </div>
             <AgileModal
                 item={item}
-                onClose={onClose}
                 show={show}
+                onClose={onClose}
+                deleteItem={deleteItem}
+
             />
         </Fragment>
     );

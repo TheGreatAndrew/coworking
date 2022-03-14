@@ -70,3 +70,10 @@ heroku ps:scale web=2 --app online-coworking
 ~~~~~ RUN
 cd frontend && npm start
 cd backend && npm start 
+
+
+
+TODO 
+AgileBoard remove cardId has error
+    https://github.com/react-dnd/react-dnd/issues/361 so can't delete
+    https://stackoverflow.com/questions/64894806/expected-to-find-a-valid-target-react-dnd
